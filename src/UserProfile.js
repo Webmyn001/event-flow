@@ -32,12 +32,11 @@ function UserProfile() {
   <button className='bg-white border-fuchsia-950 px-2 py-1 border-2 rounded-md  text-fuchsia-950' onClick={Logout}>Log out</button>
   </div>
 
-      <h1 className='text-2xl font-bold pt-4 py-3 text-center'>Hey! Welcome to Toheeb Rabbitry, Your username is {Data.Username}</h1>
+   <div className='flex items-center justify-center h-[400px]'> 
+      <h1 className='text-2xl font-bold py-3 text-center'>Hey! Welcome to Toheeb Rabbitry, Your username is {Data.Username}</h1>
       <h1 className='text-2xl font-semibold pt-4 py-3 text-center'> Your Email  is {Data.Email}</h1>
-
       <h1 className='text-xl  pt-10 text-center'> Thanks for registering with us "{Data.Name}"</h1>
-
-      
+    </div> 
 
     </div>
   )
