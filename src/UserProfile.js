@@ -35,7 +35,7 @@ function UserProfile() {
       <h1 className='text-2xl font-bold pt-4 py-3 text-center'>Hey! Welcome to Toheeb Rabbitry, Your username is {Data.Username}</h1>
       <h1 className='text-2xl font-semibold pt-4 py-3 text-center'> Your Email  is {Data.Email}</h1>
 
-      <h1 className='text-xl  pt-10 text-center'> Thanks for registering with us {Data.Name}</h1>
+      <h1 className='text-xl  pt-10 text-center'> Thanks for registering with us "{Data.Name}"</h1>
 
       
 
