@@ -37,7 +37,7 @@ function Dashboard() {
       <h1 className='text-xl font-bold py-2 text-center'>List of all Users</h1>
      <div className='flex flex-col gap-5  justify-center items-center '>
       {users.map((info,i)=>
-       <div className=' border-white border-2  text-center  gap-2 py-2 px-2  rounded-md shadow-xl'key={i}>
+       <div className=' border-white border-2 font-mono  text-center  gap-2 py-2 px-2  rounded-md shadow-xl'key={i}>
                       
                       <h1>{i+1}.</h1>
                       <h1>{info.Name}</h1>
