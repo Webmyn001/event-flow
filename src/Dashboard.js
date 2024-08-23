@@ -12,7 +12,7 @@ function Dashboard() {
    axios.get("https://trabbitry-backend.vercel.app/api/form/dashboard").then(
     res => { 
       console.log(res.data)
-      setUsers([])
+      setUsers(res.data)
     } 
    ).catch (err => console.log(err))
   }, [])
