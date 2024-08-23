@@ -30,7 +30,7 @@ function Login() {
   }
   return (
     <div className='bg-blue-800 min-h-screen w-full'>
-        <h1 className='text-center font-semibold text-xl text-white pt-4'>LogIn Page</h1>
+        <h1 className='text-center font-bold text-xl text-white pt-4'>LogIn Page</h1>
         
           <form onSubmit={handleSubmit}>
           <div className='flex flex-col justify-center items-center gap-y-5 py-10 w-full '>
@@ -42,7 +42,7 @@ function Login() {
 
 
              <input type='password'
-              placeholder='Password'
+              placeholder='Passkey'
               required
               className='text-[15px] text-slate-950 border-2 rounded-md py-1 px-2 w-[300px]  focus:outline-0'
              onChange={(e)=> SetPassword(e.target.value)}/>

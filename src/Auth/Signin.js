@@ -25,7 +25,7 @@ function Signin() {
   }
   return (
     <div className='bg-green-600 min-h-screen w-full'>
-        <h1 className='text-center font-semibold text-xl text-white pt-4'>Sign Up Page</h1>
+        <h1 className='text-center font-bold text-xl text-white pt-4'>Sign Up Page</h1>
         
           <form onSubmit={handleSubmit}>
           <div className='flex flex-col justify-center items-center gap-y-5 py-7 h-fit w-full '>
@@ -49,7 +49,7 @@ function Signin() {
              onChange={(e)=> SetUsername(e.target.value)}/>
 
              <input type='password'
-              placeholder='Password'
+              placeholder='Passkey'
               required
               className='text-[15px] text-slate-950 border-2 rounded-md py-1 px-2 w-[300px] focus:outline-0'
               onChange={(e)=> SetPassword(e.target.value)}/>
