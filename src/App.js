@@ -4,7 +4,10 @@ import Login from './Auth/Login';
 import Homepage from './Homepage';
 import UserProfile from './UserProfile';
 import Dashboard from './Dashboard';
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import Navbar from './Header/Navbar';
+import Details from './Details';
+import PostVideo from './PostVideo';
 
 function App() {
   
@@ -12,16 +15,20 @@ function App() {
 
   return (
    <div>
-    <BrowserRouter>
+    <Router>
+       <Navbar/>
     <Routes>
-      <Route path='/' element={<Homepage/>}> </Route>
-      <Route path='/login' element={<Login/>}> </Route>
-      <Route path='/signin' element={<Signin/>}> </Route>
-      <Route path='/dashboard' element={<Dashboard/>}> </Route>
-      <Route path='/userprofile' element={<UserProfile/>}> </Route>
+      <Route path='/' element={<Homepage/>}></Route>
+      <Route path='/login' element={<Login/>}></Route>
+      <Route path='/signin' element={<Signin/>}></Route>
+      <Route path='/dashboard' element={<Dashboard/>}></Route>
+      <Route path='/userprofile' element={<UserProfile/>}></Route>
+      <Route path='/posts' element={<PostVideo/>}></Route>
+
+      <Route path = "/details/:id" exact element= {<Details/>}></Route>
     </Routes>
     
-    </BrowserRouter>
+    </Router>
     
      
    </div>

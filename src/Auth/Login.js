@@ -15,6 +15,8 @@ function Login() {
       .then(res => {
         console.log(res.data)
         localStorage.setItem('data', JSON.stringify(res.data))
+         localStorage.setItem('LoggedIn', JSON.stringify(true))
+
     if(res.data === "No record"){
       alert("No record found, Kindly sign up")
       navigate("/signin")
