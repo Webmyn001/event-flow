@@ -79,7 +79,7 @@ function Dashboard() {
 
      </div>
 
-     <Link to="/posts"><button className='text-xl font-bold'>Click here to upload videos</button></Link>
+     <Link to="/posts"><button className=' text-center font-bold'>Click here to upload videos</button></Link>
     </div>
   )
 }
