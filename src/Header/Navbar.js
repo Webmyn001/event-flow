@@ -25,7 +25,7 @@ import axios from "axios";
         axios.post('https://trabbitry-backend.vercel.app/api/form/logout').then(
           res => {
             console.log(res)
-            navigate("/login")
+            navigate("/")
             handleClick()
             localStorage.clear()
 
