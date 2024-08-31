@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function PostVideo() {
 
@@ -26,6 +26,8 @@ function PostVideo() {
       <h1 className='text-center font-semibold font-montserat bg-[#182c25]  text-white  py-[2px]'> Upload Video</h1>
 
  
+      <Link to="/dashboard"><button className=' pl-6 font-bold'>back to dashboard</button></Link>
+      
     <h1 className='text-[#182c25] px-3 pt-5 py-3 text-center font-mono'> Hey! Welcome Admin, Your students are waiting for you to Upload new video</h1>
     <h3 className='text-[#182c25] px-2mpx-3 text-center font-mono'> Kindly fill the form below to upload video</h3>
    
