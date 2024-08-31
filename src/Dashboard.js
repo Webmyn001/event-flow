@@ -35,6 +35,8 @@ function Dashboard() {
      
      <h1 className='text-center sm:text-xl pt-5 pb-2  font-semibold'>List of Users</h1>
 
+     <Link to="/dashboard"><button className=' font-bold'>back to dashboard</button></Link>
+
      <div className={`flex flex-col ${loading ? "" : "min-h-screen"} ${error ? "min-h-screen" : ""}  justify-center items-center`}>
         {/* table */}
 
