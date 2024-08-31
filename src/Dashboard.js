@@ -82,7 +82,7 @@ function Dashboard() {
      </div>
 
    <div className='flex justify-center items-center'>
-    <Link to="/posts"><button className='font-bold'>Click here to upload videos</button></Link>
+    <Link to="/posts"><button className='font-bold pt-4'>Click here to upload videos</button></Link>
     </div>
     </div>
   )
