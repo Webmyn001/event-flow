@@ -34,8 +34,8 @@ import {Link} from "react-router-dom";
         }
          : 
         {
-            name:"Upload Videos",
-            link:"/posts"
+            name:"",
+            link:""
         } ,
         
         
