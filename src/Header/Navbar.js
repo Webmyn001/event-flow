@@ -36,7 +36,7 @@ import axios from "axios";
         <div>
             
                      {/* large screen */}
-          <div className="bg-[#f5f5f5] flex text-[#182c25] h-[60px]">
+          <div className="bg-[#518300] flex text-white h-[60px]">
             {/* logo */}
             <div className="py-1">
             <Link to="/"> 
@@ -65,22 +65,22 @@ import axios from "axios";
           
           
                           {/* SMALL SCREENS */}
-                   <ul className={`md:hidden fixed top-0 z-30 bg-white bg-opacity-95 w-[50%] h-[320px] right-0 shadow-2xl
-                  flex flex-col ${LoggedIn ==="true" ? "gap-2" : "gap-6"} text-medium p-7 pt-20 rounded-2xl ease-in-out duration-500
+                   <ul className={`md:hidden fixed top-0 z-30 bg-[#518300]  w-[100%] h-[100%] right-0 shadow-2xl
+                  flex flex-col ${LoggedIn ==="true" ? "gap-2" : "gap-6"} text-white flex justify-center items-center text-xl font-bold p-7 pt-20  ease-in-out duration-500
                    ${open ? "top-0" : "top-[-200%]"}`}>
                     <Navlinks alternative={true} handleClick={handleClick} />
 
                     {/* Log out button */}
                     {
             LoggedIn === "true" ?
-            <button className='bg-white border-fuchsia-950 px-2 py-1 border-2 rounded-md  text-fuchsia-950' onClick={HandleLogout}>Log out</button> : 
+            <button className='bg-[#518300] border-white px-2 py-1 border-2 rounded-md  text-white' onClick={HandleLogout}>Log out</button> : 
             <div></div>
            }
 
                   </ul>
            
                              {/* toggling icon */}
-                  <div className="z-50 md:hidden text-[#182c25] cursor-pointer pr-8 flex w-full justify-end items-center" 
+                  <div className="z-50 md:hidden text-white cursor-pointer pr-8 flex w-full justify-end items-center" 
                    onClick={handleClick}>
                     {open ? <FaTimes/> : <FaBars/>}
                   </div>
