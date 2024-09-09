@@ -52,7 +52,7 @@ function Login() {
           <div className='flex flex-col justify-center items-center px-[20px] pt-0 gap-y-5 py-2 w-full '>
              <input type='text'
               required
-              className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-0'
+              className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-none'
               onChange={(e)=> setEmail(e.target.value)}/>
           </div>
 
@@ -60,7 +60,7 @@ function Login() {
           <div className='flex flex-col justify-center items-center px-[20px] pt-0 gap-y-5 py-3 w-full '>
              <input type='password'
               required
-             className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-0'
+             className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-none'
              onChange={(e)=> SetPassword(e.target.value)}/>
           </div>
 
