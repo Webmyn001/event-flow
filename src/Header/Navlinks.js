@@ -19,7 +19,7 @@ import {Link} from "react-router-dom";
 
 
         LoggedIn === null ?
-        {name: "Log in",
+        {name: "Login",
          link : "/Login"
         }
          : 
@@ -29,7 +29,7 @@ import {Link} from "react-router-dom";
         } ,
         
         LoggedIn === null ?
-        {name: "Sign up",
+        {name: "SignUp",
          link : "/signin"
         }
          : 

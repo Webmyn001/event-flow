@@ -33,7 +33,7 @@ import axios from "axios";
         ).catch(err => console.log(err))
     }
     return(
-        <div>
+        <div className="font-Poppins">
             
                      {/* large screen */}
           <div className="bg-[#518300] flex text-white h-[60px]">

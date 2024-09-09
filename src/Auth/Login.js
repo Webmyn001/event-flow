@@ -37,7 +37,7 @@ function Login() {
       }).catch(err => console.log(err))
   }
   return (
-    <div className=''>
+    <div className='font-Poppins'>
         
 
   <div className='flex bg-[#E5E5E5] min-h-screen w-full justify-center  items-center'>

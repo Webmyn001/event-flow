@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Avatar from "../Images/Logo.png"
+
 
 
 function Signin() {
@@ -24,51 +26,63 @@ function Signin() {
       }).catch(err => console.log(err))
   }
   return (
-    <div className='bg-green-600 min-h-screen w-full'>
-        <h1 className='text-center font-bold text-xl text-white pt-4'>Sign Up Page</h1>
+    <div className='font-Poppins'>
         
+        <div className='flex bg-[#E5E5E5] min-h-screen w-full justify-center  items-center'>
+        <div className='bg-white w-fit px-[15px] pt-[5px] py-[30px] h-fit rounded-[19px] drop-shadow-lg'> 
+
+       <div className='flex justify-center py-4 items-center'>
+          <img src={Avatar} alt='avatar' className='w-[80px] h-[80px] object-cover'/>
+        </div>
+          <h1 className='text-[#518300] font-bold pb-5 text-center '>SignUp</h1>
           <form onSubmit={handleSubmit}>
-          <div className='flex flex-col justify-center items-center gap-y-5 py-7 h-fit w-full '>
 
+          <h6 className='text-xs px-[20px]'>Full Name</h6>
+          <div className='flex flex-col justify-center items-center px-[20px] pt-0 gap-y-5 py-2 w-full '>
              <input type='text'
-              placeholder='Full Name'
-               required
-               className='text-[15px] text-slate-950 border-2 rounded-md py-1 px-2 w-[300px] focus:outline-0'
-               onChange={(e)=> setName(e.target.value)}/>
-
-             <input type='text' 
-             placeholder='Email'
               required
-              className='text-[15px] text-slate-950 border-2 rounded-md py-1 px-2 w-[300px] focus:outline-0'
+              className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-none'
+              onChange={(e)=> setName(e.target.value)}/>
+          </div>
+
+          <h6 className='text-xs px-[20px]'>Email</h6>
+          <div className='flex flex-col justify-center items-center px-[20px] pt-0 gap-y-5 py-2 w-full '>
+             <input type='text'
+              required
+              className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-none'
               onChange={(e)=> setEmail(e.target.value)}/>
+          </div>
 
-             <input type='text' 
-             placeholder='Username' 
-             required
-             className='text-[15px] text-slate-950 border-2 rounded-md py-1 w-[300px] px-2  focus:outline-0'
-             onChange={(e)=> SetUsername(e.target.value)}/>
-
-             <input type='password'
-              placeholder='Passkey'
+          <h6 className='text-xs px-[20px]'>Username</h6>
+          <div className='flex flex-col justify-center items-center px-[20px] pt-0 gap-y-5 py-2 w-full '>
+             <input type='text'
               required
-              className='text-[15px] text-slate-950 border-2 rounded-md py-1 px-2 w-[300px] focus:outline-0'
-              onChange={(e)=> SetPassword(e.target.value)}/>
-             
+              className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-none'
+              onChange={(e)=> SetUsername(e.target.value)}/>
           </div>
 
-          <div className='flex justify-center py-3'>
-          <button type="submit" className='py-1 px-2 text-center bg-white text-black rounded-md'>
-            Sign Up
+          <h6 className='text-xs px-[20px]'>Password</h6>
+          <div className='flex flex-col justify-center items-center px-[20px] pt-0 gap-y-5 py-3 w-full '>
+             <input type='password'
+              required
+             className='text-[15px] text-black border-[1px] bg-[#FCFCFC]  border-black py-1 px-2 w-[220px] sm:w-[270px] focus:outline-none'
+             onChange={(e)=> SetPassword(e.target.value)}/>
+          </div>
+
+        <div className='flex justify-center'>
+          <button className='py-2 px-2 text-center w-[220px] sm:w-[270px] bg-[#518300] text-white '>
+            SignUp
           </button>
-          </div>
-
+       </div>
           </form>
 
-         <div className='text-center py-3 text-white'>
-      <Link to="/login">Already have an Account</Link>
-      </div>  
+         <h1 className='text-[#518300] text-xs text-center py-4'>Already a user? <Link to="/login" className='underline text-[14px] font-bold'> Login</Link></h1>
+      
+        </div>
+      </div>
 
-      <div className='text-center py-2 text-white'>
+
+      <div className='text-center py-2 text-black'>
       <Link to="/">Back to Homepage</Link>
       </div>
          
