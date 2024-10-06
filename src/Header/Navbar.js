@@ -1,7 +1,8 @@
 import React from "react"
 import {  useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import image1 from "../Images/Logo.png"
+import Logo from "../Images/RabbitLogo.jpg"
+
 
 
 
@@ -33,15 +34,15 @@ import axios from "axios";
         ).catch(err => console.log(err))
     }
     return(
-        <div className="font-Poppins">
+        <div className="font-Bricolage">
             
                      {/* large screen */}
-          <div className="bg-[#518300] flex text-white h-[60px]">
+          <div className="bg-[#043A3A] flex text-white h-[60px]">
             {/* logo */}
             <div className="py-1">
             <Link to="/"> 
               <div className="pl-2 ">
-              <img src={image1} alt="logo" className="h-[50px] w-[50px] cursor-pointer rounded-lg"/>
+              <img src={Logo} alt="logo" className="h-[50px] w-[50px] cursor-pointer rounded-lg"/>
                 </div>   
                </Link> 
              </div>
@@ -65,7 +66,7 @@ import axios from "axios";
           
           
                           {/* SMALL SCREENS */}
-                   <ul className={`md:hidden fixed top-0 z-30 bg-[#518300]  w-[100%] h-[100%] right-0 shadow-2xl
+                   <ul className={`md:hidden fixed top-0 z-30 bg-[#043A3A]  w-[100%] h-[100%] right-0 shadow-2xl
                   flex flex-col ${LoggedIn ==="true" ? "gap-2" : "gap-6"} text-white flex justify-center items-center text-xl font-bold p-7 pt-20  ease-in-out duration-500
                    ${open ? "top-0" : "top-[-200%]"}`}>
                     <Navlinks alternative={true} handleClick={handleClick} />
@@ -73,7 +74,7 @@ import axios from "axios";
                     {/* Log out button */}
                     {
             LoggedIn === "true" ?
-            <button className='bg-[#518300] border-white px-2 py-1 border-2 rounded-md  text-white' onClick={HandleLogout}>Log out</button> : 
+            <button className='bg-[#2FB95D] border-white px-2 py-1 border-2 rounded-md  text-white' onClick={HandleLogout}>Log out</button> : 
             <div></div>
            }
 

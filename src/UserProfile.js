@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 import ReactPlayer from 'react-player/youtube'
+import { Link } from 'react-router-dom'
 
 
 function UserProfile() {
-
+  const Role = localStorage.getItem('Role')
+   
 
   const [Data , setData] = useState([])
   const [VideoInfo , setVedioInfo] = useState([])
@@ -36,38 +38,61 @@ function UserProfile() {
 
   
   return (
-    <div className='bg-[#f5f5f5]  text-[#182c25] w-full min-h-screen'>
+    <div className='bg-[#f5f5f5] font-Bricolage text-[#182c25] w-full min-h-screen'>
 
 
-   <div className='flex flex-col items-center  justify-center h-[400px]'> 
-      <h1 className='text-2xl font-bold py-2  px-2 text-center'>Hey! Welcome to Toheeb Rabbitry.</h1>
-         <h1 className='text-xl font-mono pt-3 text-center px-2'> Your username is {Data.Username}.</h1>
-      <h1 className='text-2xl font-semibold font-sans pt-4 py-3 px-1 text-center'> Your Email  is {Data.Email}.</h1>
-      <h1 className='text-xl text-pretty italic pt-5 font-serif text-center'> Thanks for registering with us, '{Data.Name}.'</h1>
-    </div> 
+     {/*<ReactPlayer url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width="320px" height="320px" />*/}
+{/* <img alt='pic' src={image1} className='w-[250px] h-[250px]' /> */}
 
-     {/*<ReactPlayer url='https://www.youtube.com/watch?v=LXb3EKWsInQ' />*/}
+  <div className='px-5 flex py-3 pb-4 justify-between items-center'>
+    <div className='text-sm'>
+     <h1>Hi! Welcome {Data.Username}</h1>
+    </div>
+
+    <div>
+      <button className='py-1 px-2 text-xs rounded-e-lg font-Mulish text-white bg-[#182c25]'>Update Profile</button>
+    </div>
+  </div>    
 
 
+  <div className='flex justify-center items-center py-1 pb-6 '>
+    <h1 className='font-semibold text-center px-3  text-sm md:text-xl '>Learn at Your Pace: Step-by-Step Expert Video Guides.</h1>
+  </div>
 
+  <div className='flex justify-center items-center'>
+ <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 font-Mulish text-[#182c25] gap-5'>
            {  
               VideoInfo.map((info, i) => 
-        <div className='py-4' key={i}>
-                 <div className="flex  justify-center items-center ">
-                 <ReactPlayer url={info.URL} width="320px" height="320px" />
+
+              <div className='bg-white shadow-2xl shadow-[#93a575] rounded-[6px] h-fit w-[300px] 'key={i}>
+        
+                  <ReactPlayer url={info.URL} width="300px" height="300px" />
+
+                  <div className='flex justify-start pt-[12px] px-3'>
+                  <button className='flex items-center bg-[#182c25] text-xs font-Mulish rounded-full px-2 py-1 text-white justify-center'>View</button>
                  </div>
-
-
-           <div className='flex justify-center items-center'>
-              <p className='text-center w-[300px] px-2 py-1 font-mono '>{info.Description}</p> 
-             </div>
-          </div>
+                 <h4 className='px-3 pt-2 text-sm font-bold'>Description</h4>
+                 <p className='px-3 pt-1 pb-3 text-xs '>{info.Description}</p> 
+                </div>
+        
                 
               )
            }
 
+  </div>
+
+  
+
+</div>
 
 
+    {Role ==="Admin"  ? 
+    <div className='flex justify-end px-5 font-Mulish sm:pr-[50px] items-center py-5 '>
+        <Link to="/posts">
+          <button className='flex items-center rounded-full text-sm justify-center text-white bg-[#182c25] py-1 px-2 '>Add Video +</button>
+        </Link>
+    </div>:
+          <div></div> }
 
 
     </div>

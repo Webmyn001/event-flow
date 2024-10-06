@@ -5,7 +5,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Poppins: ["Poppins", "sans-serif"]
+        Poppins: ["Poppins", "sans-serif"] ,
+        Bricolage : ["Bricolage Grotesque", "sans-serif"],
+        Mulish : ["Mulish", "sans-serif"],
       }
     },
   },

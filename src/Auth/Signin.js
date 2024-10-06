@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Avatar from "../Images/Logo.png"
+import Avatar from "../Images/RabbitLogo.jpg"
+
 
 
 
@@ -26,15 +27,15 @@ function Signin() {
       }).catch(err => console.log(err))
   }
   return (
-    <div className='font-Poppins'>
+    <div className='font-Bricolage'>
         
         <div className='flex bg-[#E5E5E5] min-h-screen w-full justify-center  items-center'>
         <div className='bg-white w-fit px-[15px] pt-[5px] py-[30px] h-fit rounded-[19px] drop-shadow-lg'> 
 
        <div className='flex justify-center py-4 items-center'>
-          <img src={Avatar} alt='avatar' className='w-[80px] h-[80px] object-cover'/>
+          <img src={Avatar} alt='avatar' className='w-[80px] rounded-full h-[80px] object-cover'/>
         </div>
-          <h1 className='text-[#518300] font-bold pb-5 text-center '>SignUp</h1>
+          <h1 className='text-[#043A3A]  font-bold pb-5 text-center '>SignUp</h1>
           <form onSubmit={handleSubmit}>
 
           <h6 className='text-xs px-[20px]'>Full Name</h6>
@@ -70,21 +71,17 @@ function Signin() {
           </div>
 
         <div className='flex justify-center'>
-          <button className='py-2 px-2 text-center w-[220px] sm:w-[270px] bg-[#518300] text-white '>
+          <button className='py-2 px-2 text-center w-[220px] sm:w-[270px] bg-[#043A3A]  text-white '>
             SignUp
           </button>
        </div>
           </form>
 
-         <h1 className='text-[#518300] text-xs text-center py-4'>Already a user? <Link to="/login" className='underline text-[14px] font-bold'> Login</Link></h1>
+         <h1 className='text-[#043A3A]  text-xs text-center py-4'>Already a user? <Link to="/login" className='underline text-[14px] font-bold'> Login</Link></h1>
       
         </div>
       </div>
 
-
-      <div className='text-center py-2 text-black'>
-      <Link to="/">Back to Homepage</Link>
-      </div>
          
 
     </div>

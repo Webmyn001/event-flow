@@ -30,21 +30,17 @@ function Dashboard() {
 
   
   return (
-    <div className='bg-[#f5f5f5] pb-[60px] text-[#182c25] w-full min-h-screen'>
-    <h1 className='text-center font-semibold font-montserat bg-[#182c25]  text-white  py-[2px]'>Admin Dashboard</h1>
+    <div className='bg-[#f5f5f5] pb-[60px] [#2FB95D] font-Mulish text-[#182c25] w-full min-h-screen'>
      
-     <h1 className='text-center sm:text-xl pt-5 pb-2  font-semibold'>List of Users</h1>
-
-    
-
+     <h1 className='text-center sm:text-xl pt-5 pb-2  font-semibold'>Database</h1>
      <div className={`flex flex-col ${loading ? "" : "min-h-screen"} ${error ? "min-h-screen" : ""}  justify-center items-center`}>
         {/* table */}
 
 
   
-  {loading ? <div></div>:<div className="flex  justify-center items-center text-xl font-bold"><Bars height="100" width="80" radius="10" color="#182c25" ariaLabel="loading"/></div>}
+  {loading ? <div></div>:<div className="flex  justify-center items-center text-xl font-bold"><Bars height="100" width="80" radius="10" color="#518300" ariaLabel="loading"/></div>}
 
-  {error ? <div className="flex  justify-center items-center text-xl font-bold"><Bars height="100" width="80" radius="10" color="#182c25" ariaLabel="loading"/></div>: <div></div>}
+  {error ? <div className="flex  justify-center items-center text-xl font-bold"><Bars height="100" width="80" radius="10" color="#518300" ariaLabel="loading"/></div>: <div></div>}
 
 {
 
@@ -59,19 +55,19 @@ function Dashboard() {
    
 
      <table className={`text-center ${error ? 'hidden':'block'} ${loading ? "block" : "hidden"} table-auto mx-2`}>
-            <tbody className="border border-[#182c25] ">
-            <tr className="border border-[#182c25] ">
-                <th className="border border-[#182c25]  px-2">S/N</th>
-                <th className="border border-[#182c25]">Name</th>
-                <th className="border border-[#182c25] px-2">Username</th>
+            <tbody>
+            <tr>
+                <th className="border border-b-[#717171]  text-sm pb-5 pt-2  px-2">S/N</th>
+                <th className="border border-b-[#717171] text-sm  pb-5 pt-2  px-2">Username</th>
+                <th className="border border-b-[#717171] text-sm pb-5 pt-2  px-2">Action</th>
 
 
             </tr>
        {users.map((info,i)=>
        <tr className=' 'key={i}>
-                      <td className="border border-[#182c25]">{i+1}.</td>
-                      <td className="border border-[#182c25] hover:text-blue-500 hover:underline px-2"><Link to={ {pathname:`/details/${info.Name}`}}  state={info}>{info.Name}</Link></td>
-                      <td className="border border-[#182c25] hover:text-blue-500 hover:underline px-2"><Link to={ {pathname:`/details/${info.Name}`}}  state={info}>{info.Username}</Link></td>
+                      <td className="border border-b-[#717171] px-2 text-sm pb-5 pt-2  text-[#717171]">{i+1}</td>
+                      <td className="border border-b-[#717171] text-[#717171]  px-2 text-sm pb-5 pt-2 ">{info.Username}</td>
+                      <td className="border border-b-[#717171] text-[#717171] px-2 text-sm  pb-5 pt-2 "><Link to={ {pathname:`/details/${info.Name}`}}  state={info}><button className='bg-[#518300] px-2 text-xs py-1 text-white rounded-sm'>View Profile</button></Link></td>
                      
            </tr>
        )}
@@ -81,9 +77,7 @@ function Dashboard() {
 
      </div>
 
-   <div className='flex justify-center items-center'>
-    <Link to="/posts"><button className='font-bold pt-4'>Click here to upload videos</button></Link>
-    </div>
+   
     </div>
   )
 }

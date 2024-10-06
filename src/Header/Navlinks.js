@@ -5,19 +5,14 @@ import {Link} from "react-router-dom";
  function Navlinks (props) {
   
     const LoggedIn = localStorage.getItem('LoggedIn')
+    const Role = localStorage.getItem('Role')
 
-
+    
     const Links = [
         {name: "Home",
          link : "/"
         },
-
-        {name: "Contact",
-            link : "/contact"
-        },
-
-
-
+        
         LoggedIn === null ?
         {name: "Login",
          link : "/Login"
@@ -37,9 +32,19 @@ import {Link} from "react-router-dom";
             name:"",
             link:""
         } ,
-        
-        
        
+        Role === "Admin" ?
+        {name: "Dashboard",
+         link : "/Dashboard"
+        }
+         : 
+        {
+            name:"",
+            link:""
+        } ,
+       
+
+        
        
     ]
     return(

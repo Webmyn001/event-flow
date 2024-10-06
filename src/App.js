@@ -8,13 +8,14 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Navbar from './Header/Navbar';
 import Details from './Details';
 import PostVideo from './PostVideo';
+import Footer from './Footer';
 
 function App() {
   
   
 
   return (
-   <div>
+   <div className='bg-[#f5f5f5]'>
     <Router>
        <Navbar/>
     <Routes>
@@ -27,7 +28,7 @@ function App() {
 
       <Route path = "/details/:id" exact element= {<Details/>}></Route>
     </Routes>
-    
+       <Footer/>
     </Router>
     
      
