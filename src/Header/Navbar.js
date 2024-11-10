@@ -23,7 +23,7 @@ import axios from "axios";
   const navigate = useNavigate()
 
      const HandleLogout = () => {
-        axios.post('https://trabbitry-backend.vercel.app/api/form/logout').then(
+        axios.post('http://localhost:4000/api/form/logout').then(
           res => {
             console.log(res)
             navigate("/")

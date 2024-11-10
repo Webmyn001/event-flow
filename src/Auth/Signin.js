@@ -19,7 +19,7 @@ function Signin() {
   axios.defaults.withCredentials = true
   const handleSubmit =(e) => {
       e.preventDefault()
-      axios.post("https://trabbitry-backend.vercel.app/api/form/register", {Email,Password, Username, Name})
+      axios.post("http://localhost:4000/api/form/register", {Email,Password, Username, Name})
       .then(res => {
         console.log(res.data)
         alert('User created')

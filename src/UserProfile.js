@@ -17,7 +17,7 @@ function UserProfile() {
 
     const getVideo = ()=> {
 
-      axios.get('https://trabbitry-backend.vercel.app/api/posts/getvideos').then(res => {
+      axios.get('http://localhost:4000/api/posts/getvideos').then(res => {
         setVedioInfo(res.data)
         setloading(true)
       }
