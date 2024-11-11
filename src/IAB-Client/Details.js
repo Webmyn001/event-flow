@@ -17,7 +17,7 @@ function Details() {
       // i want to do yes or no alert here
       alert("This Question will be deleted")
       try{
-        await axios.delete(`https://iab-server.vercel.app/api/post/${id}`);
+        await axios.delete(`https://iab-server.vercel.app/api/post/delete:${id}`);
         alert("Question deleted.")
         navigate("/");
         window.location.reload()
@@ -43,7 +43,7 @@ function Details() {
    <div className='flex justify-center  items-center py-2 '>
        <div className='bg-white w-[300px] pb-3  pt-3 rounded-2xl shadow-2xl shadow-[#323232] flex flex-col items-center justify-center h-fit'>
         
-         <h1 className='pt-4 font-bold text-sm '>Question</h1>
+         <h1 className='pt-4 font-bold text-sm '>Highlight</h1>
          <h1 className='px-2 text-center text-sm'>{data.Question}</h1>
 
          <h1 className='pt-8 font-bold text-sm '>Link to Answer</h1>
