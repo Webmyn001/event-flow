@@ -17,7 +17,7 @@ function Details() {
       // i want to do yes or no alert here
       alert("This Question will be deleted")
       try{
-        await axios.delete(`https://iab-server.vercel.app/api/post/delete:${id}`);
+        await axios.delete(`https://iab-server.vercel.app/api/post/${id}`);
         alert("Question deleted.")
         navigate("/");
         window.location.reload()
