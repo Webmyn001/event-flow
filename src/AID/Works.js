@@ -89,7 +89,7 @@ function Works() {
                     </Link>
                 </div>
                 <div className='flex gap-x-2 text-2xl'>
-                    <a href='https://wa.me/+23490363918823'>
+                    <a href='https://wa.me/+2349036918823'>
                  <h1 className='text-[#4FCE5D]'><IoLogoWhatsapp/></h1>
                     </a>
                  <h1 className='text-[#ee2a7b]'><FaInstagramSquare/></h1>
