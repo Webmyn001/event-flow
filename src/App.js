@@ -26,8 +26,6 @@ function App() {
        <Route path = "/works" exact element= {<Works/>}></Route>
        <Route path = "/service" exact element= {<Service/>}></Route>
        <Route path = "/cert" exact element= {<Certifications/>}></Route>
-
-
        <Route path = "/login" exact element= {<Auth/>}></Route>
     </Routes>
       {/* Footer */}

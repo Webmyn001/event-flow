@@ -17,7 +17,7 @@ import {Link} from "react-router-dom";
            },
 
            {name: "Admin login",
-            link : "/Admin"
+            link : "/login"
            },
         
       

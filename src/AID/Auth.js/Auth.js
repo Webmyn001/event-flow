@@ -1,19 +1,29 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import {BsFillTelephoneFill} from "react-icons/bs"
 import { IoLogoWhatsapp } from 'react-icons/io'
 import { AiOutlineMail } from 'react-icons/ai'
 import Login from './Login'
 import Signup from './Signup'
-import Avatar from '../Image/Ronaldo2.jpg'
+import Avatar from '../Image/logo.jpg'
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 
 const Auth = () => {
+
+  useEffect(()=> {
+    AOS.init({duration:2000})
+
+},[])
+
     const [open , setOpen]= useState("New comment")
     return (
       <div className='min-h-screen font-josefins '>
      
       {/* General Container */}
       <div className='flex justify-center items-center min-h-screen '>
-       <div className='flex flex-col shadow-lg w-[350px]  h-fit bg-white  justify-center pb-5 mb-[50px] items-center rounded-[32px]'>
+       <div className='flex flex-col shadow-lg w-[350px]  h-fit bg-white  justify-center pb-5 mb-[50px] items-center rounded-[32px]' data-aos="flip-up">
        
        <div className='flex justify-center py-2 items-center'>
           <img src={Avatar} alt='avatar' className='w-[80px] h-[80px] rounded-full object-cover'/>
@@ -21,14 +31,14 @@ const Auth = () => {
 
         {/* log in & singn up button div */}
          <div className='buttons flex justify-between mt-[15px]'>
-          <button onClick={()=> setOpen("New comment")} className={`${ open ==="New comment"  ? "bg-[#182c25] text-white" : "bg-white  "} focus:outline-0 border-[0.2px] border-[#182c25] rounded-l-full text-xs px-2 `}>Login</button>
-          <button onClick={()=> setOpen("View comment")} className={`${ open ==="View comment"  ? "bg-[#182c25]  text-white" : "bg-white"} focus:outline-0 border-[0.2px] border-[#182c25] rounded-r-full text-xs px-2 `}>Sign Up</button>
+          <button onClick={()=> setOpen("New comment")} className={`${ open ==="New comment"  ? "bg-[#99010e] text-white" : "bg-white  "} focus:outline-0 border-[0.2px] bg-[#99010e] rounded-l-full text-xs px-2 `}>Login</button>
+          <button onClick={()=> setOpen("View comment")} className={`${ open ==="View comment"  ? "bg-[#99010e]  text-white" : "bg-white"} focus:outline-0 border-[0.2px] bg-[#99010e] rounded-r-full text-xs px-2 `}>Sign Up</button>
         </div>
         
         {/* from-[#182c25] to-[#1e453e]  */}
         
          {/* login & Sign Up  form */}
-         <div className=''>
+         <div className='' data-aos="flip-up">
             {open === "New comment" ? <Login/> : <Signup/>}
          </div>
 

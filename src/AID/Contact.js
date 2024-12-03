@@ -3,6 +3,7 @@ import Image from './Image/manager5.jpg'
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { IoLogoWhatsapp } from 'react-icons/io';
 
 
 function Contact() {
@@ -28,10 +29,23 @@ function Contact() {
                 <h2 className='font-bold pb-3  text-xl'>Oladejo Abdul-Salam</h2>
                  
                  <h4 className='font-bold pt-6 sm:pt-0 py-1'>Phone:</h4>
+                 <a href='tel:+2349036918823' className='hover:text-blue-700'>
                  <h6>(+234) 9036918823</h6>
+                 </a>
 
                  <h4 className='font-bold pt-3 py-1 '>Email:</h4>
-                 <h6>oladejoabdulsalam5@gmail.com</h6>
+                 <a href="mailto:aidconcepts01@gmail.com" className='hover:text-blue-700'>
+                      <h6>aidconcepts01@gmail.com</h6>
+                 </a>
+
+               <a href='https://wa.me/+2349036918823'>
+               <h4 className='font-bold flex justify-center sm:justify-start gap-2 hover:text-blue-700 items-center  pt-3 py-1 '>Whatsapp <span className='text-[#4FCE5D]'><IoLogoWhatsapp/></span></h4>
+               </a>
+                 
+
+
+                 
+                 
                 </div>
 
             </div>
