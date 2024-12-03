@@ -67,7 +67,7 @@ function Works() {
         <div className='grid grid-cols-1 sm:grid sm:grid-cols-2 gap-5  md:grid md:grid-cols-3'>
         {
          Works.map((info, i)=> <div key={i}>
-         <div className='bg-white  font-raleway shadow-lg w-[300px] pb-3' data-aos="flip-down">
+         <div className='bg-white  font-raleway shadow-lg w-[300px] pb-3' data-aos="fade-left">
          <img src={info.Image} alt='recent works' className='rounded-t-lg hover:scale-105  transition duration-500 w-[300px] h-[300px] object-cover' />
        <h2 className='py-3  bg-[#99010e] border-b border-[#99010e] hover:bg-white hover:text-[#99010e] transition-colors duration-700 text-white font-bold text-center w-[300px]'>{info.Title}</h2>
        <p className='bg-white w-[300px] text-[#251e3d] text-center px-2 h-fit pt-1 '>{info.Description}</p>
@@ -98,7 +98,7 @@ function Works() {
 
             {
          Works.map((info, i)=> <div key={i}>
-         <div className='bg-white  font-raleway shadow-lg w-[300px] pb-3' data-aos="flip-down">
+         <div className='bg-white  font-raleway shadow-lg w-[300px] pb-3' data-aos="fade-left">
          <img src={info.Image} alt='recent works' className='rounded-t-lg hover:scale-105  transition duration-500 w-[300px] h-[300px] object-cover' />
        <h2 className='py-3  bg-[#99010e] border-b border-[#99010e] hover:bg-white hover:text-[#99010e] transition-colors duration-700 text-white font-bold text-center w-[300px]'>{info.Title}</h2>
        <p className='bg-white w-[300px] text-[#251e3d] text-center px-2 h-fit pt-1 '>{info.Description}</p>
