@@ -18,7 +18,7 @@ function Contact() {
     <div >
         <h1 className='text-3xl sm:text-4xl py-3 text-[#251e3d] font-Outfit pb-6 text-center font-bold'>Contact Us</h1>
         <div className='flex text-[#251e3d] font-raleway flex-col justify-center items-center'>
-            <h2 className='font-semibold font-Playwrite text-xl '>Chief Executive Officer</h2>
+            <h2 className='font-semibold font-Playwrite py-3 text-xl '>Chief Executive Officer</h2>
 
             <div className='md:flex md:flex-row md:gap-x-[70px] md:h-[250px] md:items-center h-[400px]  flex flex-col items-center justify-center gap-y-3'>
                 <div>
