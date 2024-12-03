@@ -53,7 +53,7 @@ function Contact() {
 
 
         <div className='pt-4 flex font-Outfit text-[#251e3d] flex-col justify-center items-center'>
-            <h1 className='font-bold  text-[18px]'>Contact Form</h1>
+            <h1 className='font-bold  text-[20px]'>Contact Form</h1>
             <form>
               <div>
                 <h6>Your Name</h6>
