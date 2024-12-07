@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react'
-import Image1 from './Image/AID1.jpg'
-import Image2 from './Image/AID2.jpg'
-import Image3 from './Image/AIDZ.jpg'
-import Image4 from './Image/AID5.jpg'
-import Image5 from './Image/AID6.jpg'
-import Image6 from './Image/AID6I.jpg'
+import Image1 from './Image/F4.jpg'
+import Image2 from './Image/L2.jpg'
+import Image3 from './Image/D4.jpg'
+import Image4 from './Image/full-home1.jpg'
+import Image5 from './Image/POP3.jpg'
+import Image6 from './Image/P3.jpg'
+import Image7 from './Image/S1.jpg'
+
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from 'react-router-dom'
 
 
 
 function Service() {
          
-
     useEffect(()=> {
         AOS.init({duration:2000})
     
@@ -22,39 +24,52 @@ function Service() {
     const Works = [
         {
             Image : Image1,
-            Title : "Ceilings for Residential Bedrooms",
-            Description : "POP ceilings for bedrooms provide a modern, customizable design that is lightweight, durable, and visually appealing.",
+            Title : "Furnitures",
+            Description : "Home furniture includes essential pieces like sofas, beds, tables, and storage units that offer comfort, organization, and style. It comes in various materials and designs to suit different tastes and needs.",
+            Link : "/furnitures"
         },
 
         {
             Image : Image2,
-            Title : "Ornamental Columns and Pillars",
-            Description : "Ornamental columns and pillars elevate interiors with stylish designs, bringing a refined and architectural charm to any space.",
+            Title : "Home Lightning ",
+            Description : "Home lighting includes ambient, task, and accent lighting to enhance functionality and atmosphere. It features fixtures like ceiling lights, lamps, and chandeliers, helping to illuminate spaces and create a comfortable, inviting environment.",
+            Link : "/lightning"
         },
 
         {
             Image : Image3,
-            Title : "Modern Ceiling Design",
-            Description : "Latest ceiling designs feature modern styles with geometric patterns, layered textures, and materials like LED lighting and POP, creating sleek, functional, and stylish interiors.",
+            Title : " Home Decor",
+            Description : "Home decor includes furniture, textiles, and accessories that improve both the look and functionality of a space, reflecting personal style and creating a comfortable, attractive atmosphere.",
+            Link : "/decor"
         },
 
 
         {
             Image : Image4,
-            Title : "Wall Paneling and Decoration",
-            Description : "Wall paneling and decoration add elegance, depth, and warmth to interiors using materials like wood, PVC, or MDF.",
+            Title : " Full home Interior",
+            Description : "Full home interior involves designing and arranging all spaces in a home, including furniture, decor, lighting, and color schemes, to create a functional, comfortable, and visually appealing environment that reflects personal style.",
+            Link : "/home-interior"
         },
 
         {
             Image : Image5,
-            Title : "Cove Lighting Instalation",
-            Description : "Cove lighting installation involves recessed fixtures that deliver soft, indirect lighting, enhancing the room with a warm and modern ambiance.",
+            Title : "P.O.P Ceiling",
+            Description : "A pop ceiling is a decorative, layered ceiling design made from materials like gypsum or plaster, often used to conceal wires and fixtures while enhancing the room's style and ambiance.",
+            Link : "/pop"
         },
 
         {
             Image : Image6,
-            Title : " Furniture selection",
-            Description : "Furniture selection involves choosing pieces that match a space's style, functionality, and layout, ensuring comfort and cohesion in the interior.",
+            Title : " Wall  Designs",
+            Description : "Wall panel design uses materials like wood or PVC to add texture and style to walls, enhancing aesthetics, soundproofing, and hiding imperfections.",
+            Link  : "/wall-pannel"
+        },
+
+        {
+            Image : Image7,
+            Title : " Stucco",
+            Description : "Stucco is a durable plaster material used for exterior walls, made from sand, cement, lime, and water. It offers a smooth, textured finish, is weather-resistant, fireproof, and energy-efficient",
+            Link  : "/stucco"
         }
     ]
   return (
@@ -67,18 +82,19 @@ function Service() {
 
             {
                 Works.map((info, i)=> <div key={i}>
+                    <Link to={info.Link} state={info}>
               <div className=' bg-white rounded-t-md shadow-lg mt-3 w-[300px] ' data-aos="flip-right">
-                <img src={info.Image} alt={info.Title} className=' w-[370px] rounded-t-lg h-[300px] hover:scale-105  transition duration-500 object-cover' />
-
-
-                  
+                <img src={info.Image} alt={info.Title} className=' w-[370px] rounded-t-lg h-[300px] hover:scale-95  transition duration-500 object-cover' />
+ 
             <div className='text-center font-raleway '>
                 <h1 className='font-semibold  bg-[#99010e] border-b border-[#99010e] hover:bg-white hover:text-[#99010e] text-white text-[18px] py-2 px-1'>{info.Title}</h1>
                 <p className='text-[15px] text-[#251e3d] py-1  px-2'>{info.Description}</p>
             </div>
 
         </div>
-                </div>)
+            </Link>
+                </div>
+            )
             }
 
             
