@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react'
-import { FaInstagramSquare } from "react-icons/fa"
-import { FaFacebook } from "react-icons/fa"
-import { IoLogoWhatsapp } from "react-icons/io"
+
 import Image1 from './Image/design1.jpg'
-import Image2 from './Image/design2.webp'
-import Image3 from './Image/design3.jpg'
-import Image4 from './Image/design4.jfif'
 import Image5 from './Image/design5.webp'
 import Image6 from './Image/design6.jpg'
-import Image7 from './Image/design7.jpg'
 import Image8 from './Image/design8.webp'
 import Image9 from './Image/AIDA.jpg'
+
 import { Link } from 'react-router-dom'
 
 import AOS from "aos";
