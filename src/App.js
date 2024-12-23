@@ -17,6 +17,8 @@ import HomeLight from './AID/Information/HomeLight';
 import Stucco from './AID/Information/Stucco';
 import POP from './AID/Information/POP';
 import WallDesign from './AID/Information/WallDesign';
+import Floor from './AID/Information/Floor';
+import Window from './AID/Information/Window';
 
 
 function App() {
@@ -41,6 +43,9 @@ function App() {
       <Route path = "/pop" exact element= {<POP/>}></Route>
       <Route path = "/stucco" exact element= {<Stucco/>}></Route>
       <Route path = "/wall-pannel" exact element= {<WallDesign/>}></Route>
+      <Route path = "/floor" exact element= {<Floor/>}></Route>
+      <Route path = "/Window" exact element= {<Window/>}></Route>
+
    
 
        <Route path = "/cert" exact element= {<Certifications/>}></Route>

@@ -5,7 +5,11 @@ import Image3 from './Image/D4.jpg'
 import Image4 from './Image/full-home1.jpg'
 import Image5 from './Image/POP3.jpg'
 import Image6 from './Image/P3.jpg'
-import Image7 from './Image/S1.jpg'
+import Image7 from './Image/ST5.jpg'
+import Image8 from './Image/FL5.jpg'
+import Image9 from './Image/W2.jpg'
+
+
 
 
 import AOS from "aos";
@@ -70,6 +74,20 @@ function Service() {
             Title : " Stucco",
             Description : "Stucco is a durable plaster material used for exterior walls, made from sand, cement, lime, and water. It offers a smooth, textured finish, is weather-resistant, fireproof, and energy-efficient",
             Link  : "/stucco"
+        },
+
+        {
+            Image : Image8,
+            Title : "Floor Designs",
+            Description : "Floor interior design includes materials like marble, tiles, artificial grass, carpets, and interlocking pavers, each offering unique benefits in style, comfort, and durability.",
+            Link : "/floor"
+        },
+
+        {
+            Image : Image9,
+            Title : "Window Setup",
+            Description : "Interior window setups, like curtains, blinds, shades, and shutters, enhance privacy, light control, and aesthetics with options for softness, light management, minimalism, and elegance.",
+            Link : "/window"
         }
     ]
   return (

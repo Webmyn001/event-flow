@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react'
 
-import Image1 from '../Image/S1.jpg'
+import Image1 from '../Image/ST1.jpg'
+import Image2 from '../Image/ST2.jpg'
+import Image3 from '../Image/ST3.jpg'
+import Image4 from '../Image/ST4.jpg'
+import Image5 from '../Image/ST5.jpg'
+import Image6 from '../Image/ST6.jpg'
+import Image7 from '../Image/ST7.jpg'
+
 
 import { Link, useLocation } from 'react-router-dom'
 
@@ -22,7 +29,34 @@ function Stucco() {
             Image : Image1,
             Title : "Stucco",
         },   
+        {
+          Image : Image2,
+          Title : "Stucco",
+      },   
 
+      {
+        Image : Image3,
+        Title : "Stucco",
+    },   
+
+    {
+      Image : Image4,
+      Title : "Stucco",
+  },   
+
+  {
+    Image : Image5,
+    Title : "Stucco",
+},   
+
+{
+  Image : Image6,
+  Title : "Stucco",
+},   
+{
+  Image : Image7,
+  Title : "Stucco",
+},   
         
     ]
   return (
