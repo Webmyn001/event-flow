@@ -19,6 +19,11 @@ import POP from './AID/Information/POP';
 import WallDesign from './AID/Information/WallDesign';
 import Floor from './AID/Information/Floor';
 import Window from './AID/Information/Window';
+import AC from './AID/Information/AC';
+import Cctv from './AID/Information/cctv';
+import Garden from './AID/Information/Garden';
+import Clean from './AID/Information/Clean';
+import Wall from './AID/Information/Wall';
 
 
 function App() {
@@ -45,6 +50,12 @@ function App() {
       <Route path = "/wall-pannel" exact element= {<WallDesign/>}></Route>
       <Route path = "/floor" exact element= {<Floor/>}></Route>
       <Route path = "/Window" exact element= {<Window/>}></Route>
+      <Route path = "/ac" exact element= {<AC/>}></Route>
+      <Route path = "/cctv" exact element= {<Cctv/>}></Route>
+      <Route path = "/garden" exact element= {<Garden/>}></Route>
+      <Route path = "/cleaning" exact element= {<Clean/>}></Route>
+      <Route path = "/console" exact element= {<Wall/>}></Route>
+      
 
    
 

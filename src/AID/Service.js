@@ -8,6 +8,13 @@ import Image6 from './Image/P3.jpg'
 import Image7 from './Image/ST5.jpg'
 import Image8 from './Image/FL5.jpg'
 import Image9 from './Image/W2.jpg'
+import Image10 from './Image/AC1.jpg'
+import Image11 from './Image/cctv2.jpg'
+import Image12 from './Image/GC2.jpg'
+import Image13 from './Image/GD4.jpg'
+import Image14 from './Image/WC1.jpg'
+
+
 
 
 
@@ -88,6 +95,41 @@ function Service() {
             Title : "Window Setup",
             Description : "Interior window setups, like curtains, blinds, shades, and shutters, enhance privacy, light control, and aesthetics with options for softness, light management, minimalism, and elegance.",
             Link : "/window"
+        },
+
+        {
+            Image : Image10,
+            Title : "Air Conditioning",
+            Description : "Keep your home cool and comfortable with our expert AC installation, maintenance, and repair services, ensuring your system runs smoothly year-round.",
+            Link : "/ac"
+        },
+
+        {
+            Image : Image11,
+            Title : "CCTV Installation",
+            Description : "Enhance your home’s security with our expert CCTV installation services, providing reliable surveillance solutions for peace of mind year-round.",
+            Link : "/cctv"
+        },
+
+        {
+            Image : Image12,
+            Title : "General Cleaning Service",
+            Description : "Revitalize any space with our professional cleaning services, covering homes, mosques, schools, offices, and commercial properties, as well as renovation, carpet cleaning, and post-construction cleanup.",
+            Link : "/cleaning"
+        },
+
+        {
+            Image : Image13,
+            Title : "Garden exterior design",
+            Description : "Enhance your outdoor space with our professional garden and exterior design services, including landscaping, lawn maintenance, garden planning, water features, outdoor lighting, and driveway designs.",
+            Link : "/garden"
+        },
+
+        {
+            Image : Image14,
+            Title : "Wall Console",
+            Description : "Interior window setups, like curtains, blinds, shades, and shutters, enhance privacy, light control, and aesthetics with options for softness, light management, minimalism, and elegance.",
+            Link : "/console"
         }
     ]
   return (
