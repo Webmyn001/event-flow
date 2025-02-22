@@ -153,16 +153,16 @@ export default function Dashboard() {
               {['title', 'price', 'image'].map((field) => (
                 <div key={field}>
                   <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
-                    {field === 'price' ? 'Price ($)' : field}
+                    {field === 'price' ? 'Price ' : field}
                   </label>
                   <input
-                    type={field === 'price' ? 'number' : 'text'}
+                    type={field === 'price' ? 'text' : 'text'}
                     value={formData[field]}
                     onChange={(e) => setFormData(prev => ({ ...prev, [field]: e.target.value }))}
                     className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#99010e] focus:border-transparent transition-all"
                     placeholder={
                       field === 'image' ? 'Paste image URL...' 
-                      : field === 'price' ? '0.00' 
+                      : field === 'price' ? '#0.00' 
                       : `Enter ${field}`
                     }
                     required
