@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Oval } from 'react-loader-spinner'
-import Button from './Button'
 import { FiMail, FiLock, FiUser, FiKey } from 'react-icons/fi'
 
 function Signup() {
