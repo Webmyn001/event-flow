@@ -194,7 +194,7 @@ export default function Dashboard() {
                     className="h-48 w-full object-cover rounded-lg mb-3"
                   />
                   <h4 className="font-medium text-gray-800 truncate">{formData.title}</h4>
-                  <p className="text-[#99010e] font-medium">${formData.price}</p>
+                  <p className="text-[#99010e] font-medium">{formData.price}</p>
                 </div>
               </div>
             )}
@@ -234,7 +234,7 @@ export default function Dashboard() {
                       <FiTrash2 className="w-5 h-5" />
                     </button>
                   </div>
-                  <p className="text-[#99010e] font-medium">${work.price}</p>
+                  <p className="text-[#99010e] font-medium">{work.price}</p>
                 </div>
               </article>
             ))}
