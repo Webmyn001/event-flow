@@ -1,51 +1,52 @@
-import React, { useState } from 'react'
-import Button from './Button'
-import { Oval } from 'react-loader-spinner'
-import { useNavigate } from 'react-router-dom'
-import axios from "axios"
-import { FiMail, FiLock } from 'react-icons/fi'
+import React, { useState } from 'react';
+import Button from './Button';
+import { Oval } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { FiMail, FiLock } from 'react-icons/fi';
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+    Email: '',
+    Password: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    console.log(formData);
 
     try {
       const res = await axios.post(
         "https://aid-server.vercel.app/api/admin/login",
         formData,
         { validateStatus: (status) => status < 500 }
-      )
-
+      );
+      console.log(res);
       if (res.status === 200) {
-        localStorage.setItem('Token', res.data.Token)
-        localStorage.setItem('userData', JSON.stringify(res.data.user))
-        navigate("/dashboard")
+        localStorage.setItem('Token', res.data.token);
+        localStorage.setItem('userData', JSON.stringify(res.data.user));
+        navigate("/dashboard");
       } else {
-        setError(res.data.message || 'Authentication failed')
+        setError(res.data.msg || 'Authentication failed');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Network error. Please try again.')
+      setError(err.response?.data?.msg || 'Network error. Please try again.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   return (
     <form className="w-full max-w-sm space-y-6" onSubmit={handleSubmit}>
@@ -55,9 +56,9 @@ function Login() {
           <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
             type="email"
-            name="email"
+            name="Email"
             placeholder="Email Address"
-            value={formData.email}
+            value={formData.Email}
             onChange={handleInputChange}
             className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-[#99010e] focus:ring-2 focus:ring-[#99010e]/50 transition-all"
             required
@@ -69,9 +70,9 @@ function Login() {
           <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
             type="password"
-            name="password"
+            name="Password"
             placeholder="Password"
-            value={formData.password}
+            value={formData.Password}
             onChange={handleInputChange}
             className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-[#99010e] focus:ring-2 focus:ring-[#99010e]/50 transition-all"
             required
@@ -86,24 +87,21 @@ function Login() {
 
         {/* Submit Button */}
         <div className='flex items-center justify-center'>
-           
-                 <button
-                     type="submit"
-                       disabled={loading}
-                       className="w-full bg-[#99010e] text-white py-3 px-6 rounded-lg font-medium font-Outfit hover:bg-white hover:border-2 hover:border-[#99010e] hover:text-[#99010e] disabled:opacity-70 transition-all flex items-center justify-center gap-2"
-                     >
-                       {loading ? (
-                         <Oval height={24} width={24} color="#fff" />
-                       ) : (
-                         'Login'
-                       )}
-                     </button>
-        
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-[#99010e] text-white py-3 px-6 rounded-lg font-medium font-Outfit hover:bg-white hover:border-2 hover:border-[#99010e] hover:text-[#99010e] disabled:opacity-70 transition-all flex items-center justify-center gap-2"
+          >
+            {loading ? (
+              <Oval height={24} width={24} color="#fff" />
+            ) : (
+              'Login'
+            )}
+          </button>
         </div>
-       
       </div>
     </form>
-  )
+  );
 }
 
-export default Login
+export default Login;
