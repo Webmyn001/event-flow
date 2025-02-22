@@ -48,7 +48,8 @@ export default function Dashboard() {
       const res = await axios.post("https://aid-server.vercel.app/api/advert/add", formData);
       setWorks(prev => [...prev, res.data]);
       setFormData({ title: '', price: '', image: '' });
-      alert('Uploaded successfully');
+      alert('Uploaded successfully')
+      window.location.reload();
     } catch (err) {
       console.error(err);
       alert('Upload failed');
