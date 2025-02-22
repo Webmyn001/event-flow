@@ -1,0 +1,41 @@
+.aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  
+  .transition-transform {
+    transition-property: transform;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  [data-aos="fade-up"] {
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+  
+  [data-aos="fade-up"].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+
+  /* Add to your CSS */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}

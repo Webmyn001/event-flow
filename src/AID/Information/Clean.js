@@ -16,82 +16,104 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 
+
+
 function Clean() {
-
-    const location = useLocation()
-    const data = location.state
-    
-    useEffect(()=> {
-        AOS.init({duration:2000})
-    
-    },[])
-
-    const Works = [
-        {
-            Image : Image1,
-            Title : "General Cleaning Service",
-        },   
-
-        {
-            Image : Image2,
-            Title : "General Cleaning Service",
-        },
-
-        {
-            Image : Image3,
-            Title : "General Cleaning Service",
-        },
-
-        {
-            Image : Image4,
-            Title : "General Cleaning Service",
-        },
+  const location = useLocation()
+  const data = location.state
 
 
-       {
-        Image : Image6,
+  const Works = [
+    {
+        Image : Image1,
         Title : "General Cleaning Service",
-   },  
+    },   
+
+    {
+        Image : Image2,
+        Title : "General Cleaning Service",
+    },
+
+    {
+        Image : Image3,
+        Title : "General Cleaning Service",
+    },
+
+    {
+        Image : Image4,
+        Title : "General Cleaning Service",
+    },
+
 
    {
-    Image : Image7,
+    Image : Image6,
     Title : "General Cleaning Service",
 },  
-       
+
+{
+Image : Image7,
+Title : "General Cleaning Service",
+},  
+   
+]
 
 
+  useEffect(() => {
+    AOS.init({ 
+      duration: 800,
+      once: true,
+      offset: 50
+    })
+  }, [])
 
-
-
-    ]
-  return (
-    <div>
-        <h1 className='text-3xl font-Playwrite text-[#251e3d] py-3 font-bold text-center'>{data.Title}</h1>
-
+  const ServiceCard = ({ image, title }) => (
+    <div 
+      className="group relative overflow-hidden bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+      data-aos="fade-up"
+    >
+      <div className="aspect-square overflow-hidden">
+        <img 
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
       
-      <div className='flex justify-center items-center'>
-        <div className='grid grid-cols-1 py-4 sm:grid sm:grid-cols-2 gap-5  md:grid md:grid-cols-3'>
-        {
-         Works.map((info, i)=> <div key={i}>
-         <div className='bg-white  font-raleway shadow-lg w-[300px] pb-3' data-aos="fade-left">
-         <img src={info.Image} alt='recent works' className='rounded-t-lg hover:scale-95  transition duration-500 w-[300px] h-[300px] object-cover' />
-       <h2 className='py-3  bg-[#99010e] border-b border-[#99010e] hover:bg-white hover:text-[#99010e] transition-colors duration-700 text-white font-bold text-center w-[300px]'>{info.Title}</h2>
-       <p className='bg-white w-[300px] text-sm text-[#251e3d] text-center px-2 h-fit pt-1 '>We're here to help – reach out if you're interested!</p>
+      <div className="p-4 text-center space-y-3">
+        <h3 className="text-xl font-bold text-[#251e3d]">{title}</h3>
+        <p className="text-gray-600 text-sm">
+          We specialize in creating perfect climate solutions for your space
+        </p>
+        <Link 
+          to="/contact"
+          className="inline-block bg-[#99010e] text-white px-6 py-2 rounded-md
+                     hover:bg-[#7a010b] transition-colors duration-300 text-sm
+                     font-medium"
+        >
+          Get Consultation
+        </Link>
+      </div>
+    </div>
+  )
 
-  <div className='flex justify-around py-2 items-center w-[300px]'>
-   <div>
-       <Link to="/contact">
-   <button className='bg-[#251e3d] text-white hover:bg-white hover:text-[#251e3d] hover:border-2 hover:border-[#251e3d] text-sm py-1 px-1 rounded-md'>Contact Us</button>
-       </Link>
-   </div>
-  
-</div>
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 pt-10 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-bold text-center my-12 text-[#251e3d] " data-aos="fade-down">
+          {data?.Title || "Our Air Conditioning Solutions"}
+        </h1>
 
-</div>
-   </div>)
-            }
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Works.map((work, i) => (
+            <ServiceCard 
+              key={`ac-${i}`}
+              image={work.Image}
+              title={work.Title}
+              data-aos-delay={i * 50}
+            />
+          ))}
         </div>
+      </div>
     </div>
   )
 }

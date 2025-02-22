@@ -1,85 +1,170 @@
-import React, { useEffect } from 'react'
-import Image from './Image/manager5.jpg'
-
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { IoLogoWhatsapp } from 'react-icons/io';
-
+import React, { useEffect, useState } from 'react'
+import { IoLogoWhatsapp } from 'react-icons/io'
+import AOS from "aos"
+import "aos/dist/aos.css"
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { Oval } from 'react-loader-spinner'
+import ManagerImage from './Image/manager5.jpg'
 
 function Contact() {
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    Name: '',
+    Email: '',
+    Message: ''
+  })
 
-  
-    useEffect(()=> {
-        AOS.init({duration:2000})
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true })
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
     
-    },[])
+    try {
+      const Time = new Date().toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        second: '2-digit'
+      })
+
+      await axios.post("https://aid-server.vercel.app/api/message/add", {
+        ...formData,
+        Time: `Submitted at: ${Time}`
+      })
+
+      alert('Thank you! Your message has been sent.')
+      setFormData({ Name: '', Email: '', Message: '' })
+      setTimeout(() => navigate("/"), 2000)
+    } catch (err) {
+      console.error(err)
+      alert('Failed to send message. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
 
   return (
-    <div >
-        <h1 className='text-3xl sm:text-4xl py-3 text-[#251e3d] font-Outfit pb-6 text-center font-bold'>Contact Us</h1>
-        <div className='flex text-[#251e3d] font-raleway flex-col justify-center items-center'>
-            <h2 className='font-semibold font-Playwrite py-3 text-xl '>Chief Executive Officer</h2>
+    <div className="min-h-screen bg-gradient-to-b pt-14 from-gray-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-4xl font-bold text-center text-[#99010e] mb-12" data-aos="fade-down">
+          Get in Touch
+        </h1>
 
-            <div className='md:flex md:flex-row md:gap-x-[70px] md:h-[250px] md:items-center h-[400px]  flex flex-col items-center justify-center gap-y-3'>
-                <div>
-                <img src={Image} alt='Manager' className='rounded-full object-cover h-[180px] w-[180px]' data-aos="zoom-in"/>
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-12" data-aos="fade-up">
+          <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+            <img 
+              src={ManagerImage} 
+              alt="Manager" 
+              className="rounded-full w-48 h-48 object-cover shadow-lg border-4 border-[#99010e]"
+              data-aos="zoom-in"
+            />
+            
+            <div className="text-center md:text-left space-y-4">
+              <h2 className="text-2xl font-bold text-[#99010e]">Oladejo Abdul-Salam</h2>
+              <p className="text-lg text-gray-600">Chief Executive Officer</p>
+              
+              <div className="space-y-2">
+                <ContactItem 
+                  label="Phone" 
+                  value="+234 903 691 8823" 
+                  href="tel:+2349036918823" 
+                />
+                <ContactItem 
+                  label="Email" 
+                  value="aidconcepts01@gmail.com" 
+                  href="mailto:aidconcepts01@gmail.com" 
+                />
+                <ContactItem 
+                  label="WhatsApp" 
+                  value="Chat with us" 
+                  href="https://wa.me/+2349036918823"
+                  icon={<IoLogoWhatsapp className="text-2xl text-[#25D366]" />}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 pt-12">
+            <h2 className="text-3xl font-bold text-center text-[#99010e] mb-8" data-aos="fade-down">
+              Send a Message
+            </h2>
+            
+            <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
+              {[
+                { name: 'Name', label: 'Your Name', type: 'text' },
+                { name: 'Email', label: 'Your Email', type: 'email' },
+                { name: 'Message', label: 'Your Message', type: 'textarea' }
+              ].map((field) => (
+                <div key={field.name}>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {field.label}
+                  </label>
+                  {field.type === 'textarea' ? (
+                    <textarea
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#251e3d] focus:border-transparent transition-all"
+                      placeholder={field.label}
+                      rows="4"
+                      required
+                    />
+                  ) : (
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#251e3d] focus:border-transparent transition-all"
+                      placeholder={field.label}
+                      required
+                    />
+                  )}
                 </div>
-                
-                <div className='text-center md:text-left'>
-                <h2 className='font-bold pb-3  text-xl'>Oladejo Abdul-Salam</h2>
-                 
-                 <h4 className='font-bold pt-6 sm:pt-0 py-1'>Phone:</h4>
-                 <a href='tel:+2349036918823' className='hover:text-blue-700'>
-                 <h6>(+234) 9036918823</h6>
-                 </a>
+              ))}
 
-                 <h4 className='font-bold pt-3 py-1 '>Email:</h4>
-                 <a href="mailto:aidconcepts01@gmail.com" className='hover:text-blue-700'>
-                      <h6>aidconcepts01@gmail.com</h6>
-                 </a>
-
-               <a href='https://wa.me/+2349036918823'>
-               <h4 className='font-bold flex justify-center sm:justify-start gap-2 hover:text-blue-700 items-center  pt-3 py-1 '>Whatsapp <span className='text-[#4FCE5D]'><IoLogoWhatsapp/></span></h4>
-               </a>
-                 
-
-
-                 
-                 
-                </div>
-
-            </div>
-        </div>
-
-
-        <div className='pt-4 flex font-Outfit text-[#251e3d] flex-col justify-center items-center'>
-            <h1 className='font-bold  text-[20px]'>Contact Form</h1>
-            <form>
-              <div>
-                <h6>Your Name</h6>
-                <input  type='text' placeholder='Your Name' required className='border-2 rounded-lg border-[#251e3d] focus:outline-0 py-5 text-[13px] mt-1 w-[300px] h-[40px] md:w-[350px] md:h-[50px] p-1 ' />
-            </div>
-
-            <div className='mt-3'>
-                <h6>Your Email</h6>
-                <input  type='text' placeholder='Your Email' required className='border-2 rounded-lg border-[#251e3d] focus:outline-0  w-[300px] h-[40px] text-[13px] md:w-[350px] md:h-[50px] p-1 ' />
-            </div>
-
-
-            <div className='mt-3'>
-                <h6>Your Message</h6>
-                <textarea  type='text' placeholder='Your Message' required className='border-2 border-[#251e3d] rounded-lg focus:outline-0  w-[300px] h-[100px] text-[13px] md:w-[350px] md:h-[150px] p-1 ' />
-            </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#99010e] text-white py-3 px-6 rounded-lg font-medium hover:text-[#99010e] hover:border-2 hover-border-[#99010e] hover:bg-white disabled:opacity-70 transition-all flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <Oval height={24} width={24} color="#fff" />
+                ) : (
+                  'Send Message'
+                )}
+              </button>
             </form>
-
+          </div>
         </div>
-
-                   <div className='flex font-raleway justify-center  py-4 pb-8 items-center md:justify-center md:w-full'>
-                     <button className='bg-[#251e3d] text-white hover:bg-transparent px-2 py-1 transition-colors border border-black rounded-md hover:text-[#251e3d] duration-700'>Send Message</button>
-                   </div>
-      
+      </div>
     </div>
   )
 }
+
+const ContactItem = ({ label, value, href, icon }) => (
+  <div className="flex items-center gap-2">
+    <span className="font-semibold text-gray-700">{label}:</span>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#251e3d] hover:text-[#99010e] transition-colors flex items-center gap-1"
+    >
+      {value} {icon}
+    </a>
+  </div>
+)
 
 export default Contact

@@ -17,7 +17,7 @@ function Certifications() {
   return (
     
     <div>
-        <h1 className='font-bold text-3xl py-1 text-[#251e3d] font-Outfit text-center'>Certifications</h1>
+        <h1 className='font-bold text-3xl pt-3 py-1 text-[#251e3d]  text-center'>Certifications</h1>
         <div>
             <div className='flex flex-col sm:flex sm:flex-row gap-5 sm:gap-y-8 pt-2 py-5 justify-center items-center' data-aos="flip-down">
                 <img src={Image1} alt='Certificate' className='h-[300px] w-[300px] rounded-lg object-cover hover:scale-95  transition duration-500' />

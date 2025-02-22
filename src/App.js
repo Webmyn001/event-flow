@@ -25,6 +25,9 @@ import Garden from './AID/Information/Garden';
 import Clean from './AID/Information/Clean';
 import Wall from './AID/Information/Wall';
 
+import Dashboard from './AID/Dashboard';
+import Unauthorized404 from './AID/Unauthorized404';
+
 
 function App() {
   
@@ -56,11 +59,24 @@ function App() {
       <Route path = "/cleaning" exact element= {<Clean/>}></Route>
       <Route path = "/console" exact element= {<Wall/>}></Route>
       
+      
 
-   
+
+      {/* Dash Board */}
+      <Route path = "/Dashboard" exact element= {<Dashboard/>}></Route>
+      
+
+        
 
        <Route path = "/cert" exact element= {<Certifications/>}></Route>
        <Route path = "/login" exact element= {<Auth/>}></Route>
+
+
+       {/* Error */}
+ <Route path = "/error" exact element= {<Unauthorized404/>}></Route>
+
+
+      
     </Routes>
       {/* Footer */}
       <Footer/>

@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import Image1 from './Image/design1.jpg'
-import Image5 from './Image/design5.webp'
-import Image6 from './Image/design6.jpg'
-import Image8 from './Image/design8.webp'
-import Image9 from './Image/AIDA.jpg'
+import axios from 'axios'
 
-
-import { Link } from 'react-router-dom'
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -21,67 +15,53 @@ function Works() {
         AOS.init({duration:2000})
     
     },[])
+  
 
-    const Works = [
-        {
-            Image : Image1,
-            Title : "Modern Ceiling Installation (POP)",
-            Description : "",
-        },   
+     const [RecentWork, setRecentWork] = useState([])
 
-        {
-            Image : Image5,
-            Title : "POP Light Design",
-            Description : "",
-        },
+    useEffect(() => {
+        axios.get("https://aid-server.vercel.app/api/advert/get").then(
+        res => { 
+          setRecentWork(res.data)
+        } 
+        ).catch (err => {
+        console.log(err)
+        })
+        }, [])
 
-        {
-            Image : Image6,
-            Title : "Light Installation",
-            Description : "",
-        },
-
-        {
-            Image : Image8,
-            Title : "Bedroom Settings (POP Design)",
-            Description : "",
-        },
-
-
-        {
-            Image : Image9,
-            Title : "Double-Layered Ceiling Design",
-            Description : "",
-        },
-    ]
+    
   return (
     <div>
-        <h1 className='text-3xl font-Outfit text-[#251e3d] py-3 font-bold text-center'>Recent Works</h1>
+        <h1 className='text-3xl  text-[#251e3d] py-3 font-bold text-center'>Recent Works</h1>
       
-      <div className='flex justify-center items-center'>
-        <div className='grid grid-cols-1 py-4 sm:grid sm:grid-cols-2 gap-5  md:grid md:grid-cols-3'>
-        {
-         Works.map((info, i)=> <div key={i}>
-         <div className='bg-white  font-raleway shadow-lg w-[300px] pb-3' data-aos="fade-left">
-         <img src={info.Image} alt='recent works' className='rounded-t-lg hover:scale-95  transition duration-500 w-[300px] h-[300px] object-cover' />
-       <h2 className='py-3  bg-[#99010e] border-b border-[#99010e] hover:bg-white hover:text-[#99010e] transition-colors duration-700 text-white font-bold text-center w-[300px]'>{info.Title}</h2>
-       <p className='bg-white w-[300px] text-[#251e3d] text-center px-2 h-fit pt-1 '>{info.Description}</p>
-
-  <div className='flex justify-around py-2 items-center w-[300px]'>
-   <div>
-       <Link to="/contact">
-   <button className='bg-[#251e3d] text-white text-sm py-1 px-1 rounded-md'>Contact Us</button>
-       </Link>
-   </div>
-  
-</div>
-
-</div>
-   </div>)
-            }
-
-
+              <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-4 ">
+          {RecentWork.map((info, i) => (
+            <div 
+              key={i} // Better to use unique ID instead of index if available
+              className="group relative flex flex-col transition-shadow hover:shadow-xl"
+              data-aos="fade-left"
+              data-aos-delay={i * 50} // Staggered animations
+            >
+              <div className="overflow-hidden rounded-lg">
+                <img 
+                  src={info.image} 
+                  alt={info.title} 
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              
+              <div className="flex flex-col flex-1 bg-white p-4">
+                <h2 className="text-lg font-bold text-center text-white bg-[#99010e] transition-colors duration-300 group-hover:bg-white group-hover:text-[#99010e] py-3 border-b border-[#99010e]">
+                  {info.title}
+                </h2>
+      
+                <h2 className='text-center py-2 font-Playwrite font-semibold text-[15px] text-[#99010e]'>Price: {info.price}</h2>
+      
+              </div>
             </div>
+          ))}
+        </div>
         </div>
 
     </div>

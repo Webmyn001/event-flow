@@ -1,50 +1,29 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
+function Navlinks({ alternative, handleClick }) {
+  const links = [
+    { name: "Home", link: "/" },
+    { name: "Contact Us", link: "/contact" },
+    { name: "Admin Login", link: "/login" },
+  ];
 
- function Navlinks (props) {
-  
-   
+  return (
+    <ul className="flex space-x-6">
+      {links.map((item, index) => (
+        <li
+          key={index}
+          onClick={handleClick}
+          className={`font-semibold font-raleway flex tracking-wide pb-1 sm:pb-2 transition duration-200 
+            hover:border-b-2 hover:border-white ${
+              alternative ? "text-white" : "text-white"
+            }`}
+        >
+          <Link to={item.link}>{item.name}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-    
-    const Links = [
-        {name: "Home",
-         link : "/"
-        },
-
-          {name: "Contact Us",
-            link : "/contact"
-           },
-
-           {name: "Admin login",
-            link : "/login"
-           },
-        
-      
-
-        
-       
-    ]
-    return(
-        <>
-       
-            {
-                Links.map((link,i) => (
-                     
-                     <div key={i}>
-                          <li key={i} className={`"font-semibold font-raleway  md:hover:border-b-2 hover:border-white hover:border-b-2   pb-1 sm:pb-2  tracking-wide
-                           ${props.alternative ? "" :"" }`} onClick={props.handleClick} >
-                       <Link to={link.link} onClick={props.handleClick} >{link.name} </Link>
-                          </li>
-
-                    </div>
-
-                    
-                ))
-            }
-             
-        </> 
-    )
- }
-
-  export default Navlinks
+export default Navlinks;

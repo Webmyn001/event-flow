@@ -3,72 +3,106 @@ import Button from './Button'
 import { Oval } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
+import { FiMail, FiLock } from 'react-icons/fi'
 
+function Login() {
+  const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-function Login () {
-  const navigate = useNavigate();
-    
-  const [Name, setName]= useState("")
-  const [School, setSchool]= useState("")
-  const [Department, setDept]= useState("")
-  const [Level, setLevel]= useState("")
-  const [Comment, setcomment]= useState("")
-
-  const [Loading, setLoading] = useState(false);
- 
-  const submit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    axios.post(`https://fair-erin-chameleon-gown.cyclic.app/api/comment/addcomment`,{Name,School,Department,Level,Comment})
-    .then((res)=>
-    { 
-    console.log("saved succesfully")
-    navigate("/");
-    alert("Submitted succesfully!!")
-  }).catch((err)=> {
-      console.log(err)
-      alert("Error!, Kindly complete the feilds and ensure you are connected to the Internet.")
-    setLoading(false)
+    setError('')
 
+    try {
+      const res = await axios.post(
+        "https://aid-server.vercel.app/api/admin/login",
+        formData,
+        { validateStatus: (status) => status < 500 }
+      )
+
+      if (res.status === 200) {
+        localStorage.setItem('Token', res.data.Token)
+        localStorage.setItem('userData', JSON.stringify(res.data.user))
+        navigate("/dashboard")
+      } else {
+        setError(res.data.message || 'Authentication failed')
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Network error. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     })
- }
-
-
-  const OnchangeComment = (e) => {
-    setcomment(e.target.value)
-  };
-  const OnchangeName = (e) => {
-    setName(e.target.value)
-  };
-  const OnchangeSchool = (e) => {
-    setSchool(e.target.value)
-  };
-  const OnchangeDept = (e) => {
-    setDept(e.target.value)
-  };
-  const OnchangeLevel = (e) => {
-    setLevel(e.target.value)
   }
 
   return (
+    <form className="w-full max-w-sm space-y-6" onSubmit={handleSubmit}>
+      <div className="space-y-4">
+        {/* Email Input */}
+        <div className="relative">
+          <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-[#99010e] focus:ring-2 focus:ring-[#99010e]/50 transition-all"
+            required
+          />
+        </div>
 
-    //to Add comment 
+        {/* Password Input */}
+        <div className="relative">
+          <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleInputChange}
+            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-[#99010e] focus:ring-2 focus:ring-[#99010e]/50 transition-all"
+            required
+            minLength="6"
+          />
+        </div>
 
-    
-    <form className='w-[250px] mt-[30px]' onSubmit={submit} encType="multipart/form-data">
+        {/* Error Message */}
+        {error && (
+          <p className="text-red-600 text-sm text-center mt-2">{error}</p>
+        )}
 
-    <input placeholder='E-mail Address' onChange={OnchangeName} value={Name} className='w-full border-b-[1px] focus:outline-0 text-[14px] pb-[3.5px] border-[#707070] text-[#1c1d1d] ' required/>
-    <input placeholder='Password' onChange={OnchangeDept} value={Department} type='password' className='w-full border-b-[1px] focus:outline-0 text-[14px] pb-[3.5px]  border-[#707070] text-[#1c1d1d] mt-[24px]' required/>
-
-    <div className=' text-[#1c1d1d] pt-[8.5px] text-[14px] flex justify-end'>
-    </div>
-    
-     {/* Log in button */}
-    <div className='flex justify-center items-center mb-2'>
-        {Loading ? <div className='pt-5 pb-2'><Oval height="30" width="30" radius="4" color="#1a456e" ariaLabel="loading"/> </div> : <Button name="Login"/>}
-     </div>
-
-     </form>
+        {/* Submit Button */}
+        <div className='flex items-center justify-center'>
+           
+                 <button
+                     type="submit"
+                       disabled={loading}
+                       className="w-full bg-[#99010e] text-white py-3 px-6 rounded-lg font-medium font-Outfit hover:bg-white hover:border-2 hover:border-[#99010e] hover:text-[#99010e] disabled:opacity-70 transition-all flex items-center justify-center gap-2"
+                     >
+                       {loading ? (
+                         <Oval height={24} width={24} color="#fff" />
+                       ) : (
+                         'Login'
+                       )}
+                     </button>
+        
+        </div>
+       
+      </div>
+    </form>
   )
 }
 
