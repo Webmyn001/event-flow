@@ -97,7 +97,7 @@ function Navbar() {
         >
           <div className="px-4 pt-2 pb-4 space-y-4">
             <NavItem to="/" className="block">Home</NavItem>
-            <NavItem to="/services" className="block">Admin</NavItem>
+            <NavItem to="/Login" className="block">Admin</NavItem>
             <NavItem to="/contact" className="block">
               <button className="w-full bg-[#99010e] text-white px-6 py-2 rounded-full hover:bg-[#7a010b] transition-colors">
                 Contact
