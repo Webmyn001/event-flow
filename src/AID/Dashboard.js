@@ -17,7 +17,7 @@ export default function Dashboard() {
     image: ''
   });
 
-
+console.log(formData)
    // Logout handler
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to logout?')) {
@@ -46,6 +46,7 @@ export default function Dashboard() {
     setLoading(true);
     try {
       const res = await axios.post("https://aid-server.vercel.app/api/advert/add", formData);
+      console.log(res)
       setWorks(prev => [...prev, res.data]);
       setFormData({ title: '', price: '', image: '' });
       alert('Uploaded successfully')

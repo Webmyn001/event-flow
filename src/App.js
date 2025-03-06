@@ -1,91 +1,74 @@
-import Footer from './AID/Footer';
-import Navbar from './AID/Header/Navbar';
-
-import './App.css';
-
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import Contact from './AID/Contact';
-import Works from './AID/Works';
-import Auth from './AID/Auth.js/Auth';
-import Service from './AID/Service';
-import Home from './AID/Home';
-import Certifications from './AID/Certifications';
-import FullHome from './AID/Information/FullHome';
-import Furnitures from './AID/Information/Furnitures';
-import HomeDecor from './AID/Information/HomeDecor';
-import HomeLight from './AID/Information/HomeLight';
-import Stucco from './AID/Information/Stucco';
-import POP from './AID/Information/POP';
-import WallDesign from './AID/Information/WallDesign';
-import Floor from './AID/Information/Floor';
-import Window from './AID/Information/Window';
-import AC from './AID/Information/AC';
-import Cctv from './AID/Information/cctv';
-import Garden from './AID/Information/Garden';
-import Clean from './AID/Information/Clean';
-import Wall from './AID/Information/Wall';
-
-import Dashboard from './AID/Dashboard';
-import Unauthorized404 from './AID/Unauthorized404';
-
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import axios from 'axios'
+import Contact from './MIH/Contact'
+import Home from './MIH/Home'
+import Footer from './MIH/Footer'
+import Header from './MIH/header/Navbar'
 
 function App() {
-  
-  
+  const [Message, setMessage] = useState([])
+
+  const getMessage = async () => {
+    try {
+      const res = await axios.get("https://test-backend-api-two.vercel.app/api/msg/")
+      setMessage(res.data)
+    } catch (err) {
+      console.error("Error fetching messages:", err)
+    }
+  }
+
+  useEffect(() => {
+    getMessage()
+  }, [])
+
+  const location = useLocation()
+
   return (
-   <div className=" bg-repeat object-cover bg-[url('./AID/Image/background-design.jpg')]" >
-    <Router>
-       <Navbar/>
-    <Routes>
-    <Route path = "/" exact element= {<Home/>}></Route>
-       <Route path = "/contact" exact element= {<Contact/>}></Route>
-       <Route path = "/works" exact element= {<Works/>}></Route>
-       <Route path = "/service" exact element= {<Service/>}></Route>
-
-
-                         {/* Service details */}
-      <Route path = "/home-interior" exact element= {<FullHome/>}></Route>
-      <Route path = "/furnitures" exact element= {<Furnitures/>}></Route>
-      <Route path = "/decor" exact element= {<HomeDecor/>}></Route>
-      <Route path = "/lightning" exact element= {<HomeLight/>}></Route>
-      <Route path = "/pop" exact element= {<POP/>}></Route>
-      <Route path = "/stucco" exact element= {<Stucco/>}></Route>
-      <Route path = "/wall-pannel" exact element= {<WallDesign/>}></Route>
-      <Route path = "/floor" exact element= {<Floor/>}></Route>
-      <Route path = "/Window" exact element= {<Window/>}></Route>
-      <Route path = "/ac" exact element= {<AC/>}></Route>
-      <Route path = "/cctv" exact element= {<Cctv/>}></Route>
-      <Route path = "/garden" exact element= {<Garden/>}></Route>
-      <Route path = "/cleaning" exact element= {<Clean/>}></Route>
-      <Route path = "/console" exact element= {<Wall/>}></Route>
+    <div className="min-h-screen bg-gray-50 font-sans antialiased">
+      <Header />
       
-      
+      <AnimatePresence mode='wait'>
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Home Message={Message} />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Contact />
+              </motion.div>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
 
-
-      {/* Dash Board */}
-      <Route path = "/Dashboard" exact element= {<Dashboard/>}></Route>
-      
-
-        
-
-       <Route path = "/cert" exact element= {<Certifications/>}></Route>
-       <Route path = "/login" exact element= {<Auth/>}></Route>
-
-
-       {/* Error */}
- <Route path = "/error" exact element= {<Unauthorized404/>}></Route>
-
-
-      
-    </Routes>
-      {/* Footer */}
-      <Footer/>
-
-    </Router>
-    
-     
-   </div>
-  );
+      <Footer />
+    </div>
+  )
 }
 
-export default App;
+export default function WrappedApp() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  )
+}
