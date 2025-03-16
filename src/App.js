@@ -1,74 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
-import axios from 'axios'
-import Contact from './MIH/Contact'
-import Home from './MIH/Home'
-import Footer from './MIH/Footer'
-import Header from './MIH/header/Navbar'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+// Components
+import RegistrationForm from './Mosque/components/RegistrationForm';
+import ContactForm from './Mosque/components/ContactForm';
+import AdminDashboard from './Mosque/components/AdminDashboard';
+import Footer from './Mosque/components/Footer';
+import Navbar from './Mosque/components/Navbar';
 
 function App() {
-  const [Message, setMessage] = useState([])
-
-  const getMessage = async () => {
-    try {
-      const res = await axios.get("https://test-backend-api-two.vercel.app/api/msg/")
-      setMessage(res.data)
-    } catch (err) {
-      console.error("Error fetching messages:", err)
-    }
-  }
-
-  useEffect(() => {
-    getMessage()
-  }, [])
-
-  const location = useLocation()
-
-  return (
-    <div className="min-h-screen bg-gray-50 font-sans antialiased">
-      <Header />
-      
-      <AnimatePresence mode='wait'>
-        <Routes location={location} key={location.pathname}>
-          <Route
-            path="/"
-            element={
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Home Message={Message} />
-              </motion.div>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Contact />
-              </motion.div>
-            }
-          />
-        </Routes>
-      </AnimatePresence>
-
-      <Footer />
-    </div>
-  )
-}
-
-export default function WrappedApp() {
   return (
     <Router>
-      <App />
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        
+        <main className="flex-grow container mx-auto px-4 py-8">
+          <Routes>
+            <Route path="/" element={<RegistrationForm />} />
+            <Route path="/contact" element={<ContactForm />} />
+           
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
     </Router>
-  )
+  );
 }
+
+export default App;
