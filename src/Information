@@ -138,3 +138,9 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
+
+
+
+ <Route path="/admin" element={<AdminDashboard />} />

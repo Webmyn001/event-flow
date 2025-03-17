@@ -25,7 +25,11 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex space-x-6">
-              <NavLink 
+            
+
+            {/* 
+            
+               <NavLink 
                 to="/" 
                 className={({ isActive }) => 
                   `flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
@@ -35,9 +39,13 @@ export default function Navbar() {
               >
                 <FontAwesomeIcon icon={faHome} />
                 <span>Home</span>
-              </NavLink>
+              </NavLink>    
+            
+            */}
               
-              <NavLink 
+             {/* 
+               
+                <NavLink 
                 to="/contact" 
                 className={({ isActive }) => 
                   `flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
@@ -48,10 +56,12 @@ export default function Navbar() {
                 <FontAwesomeIcon icon={faEnvelope} />
                 <span>Contact Us</span>
               </NavLink>
+
+             */}
               
              
-              {/*  <NavLink 
-                to="/admin" 
+                <NavLink 
+                to="/" 
                 className={({ isActive }) => 
                   `flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
                     isActive ? 'bg-white/10 text-blue-300' : 'hover:bg-white/10'
@@ -60,10 +70,10 @@ export default function Navbar() {
               >
                 <FontAwesomeIcon icon={faUserShield} />
                 <span>Admin</span>
-              </NavLink> *
+              </NavLink> 
               
-              */}
-              
+            
+
             </div>
 
             
