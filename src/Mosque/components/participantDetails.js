@@ -34,7 +34,7 @@ export default function ParticipantDetails() {
     const fetchParticipant = async () => {
       try {
         setLoading(true)
-        const response = await axios.get(`http://localhost:4000/api/participant/${id}`);
+        const response = await axios.get(`https://mosque-two.vercel.app/api/participant/${id}`);
         setParticipant(response.data);
       } catch (error) {
         console.error('Error fetching participant:', error);
