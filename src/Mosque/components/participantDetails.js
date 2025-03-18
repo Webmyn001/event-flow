@@ -51,7 +51,7 @@ export default function ParticipantDetails() {
   return (
     <div className="bg-white p-6 rounded-lg mt-16 shadow max-w-4xl mx-auto">
       <Link 
-        to="/admin" 
+        to="/" 
         className="mb-4 inline-flex items-center text-[#004D01]blue-600 hover:text-blue-800"
       >
         <FontAwesomeIcon icon={faArrowLeft} className=" text-[#004D01] mr-2" />
