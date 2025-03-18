@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faUser, faVenusMars, faBriefcase, faEnvelope, 
-  faPhone, faHome, faPaperclip, faComments
+  faPhone, faHome, faPaperclip, faComments,
+  faClock
 } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
@@ -17,6 +18,8 @@ export default function ParticipantForm() {
     occupation: '',
     email: '',
     whatsappNumber: '',
+    nokNumber: '',
+    age: '',
     address: '',
   });
 
@@ -31,6 +34,8 @@ export default function ParticipantForm() {
         occupation: '',
         email: '',
         whatsappNumber: '',
+        nokNumber: '',
+        age: '',
         address: '',
       });
     } catch (error) {
@@ -56,7 +61,7 @@ export default function ParticipantForm() {
           Submit Payment Proof
         </h3>
         <a 
-          href="https://wa.me/07064989803" 
+          href="https://wa.me/+2347064989803" 
           className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
           target="_blank"
           rel="noopener noreferrer"
@@ -81,7 +86,7 @@ export default function ParticipantForm() {
           <input
             type="text"
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none  focus:border-[#004D01]"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none text-[#004D01]  focus:border-[#004D01]"
             value={formData.fullName}
             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
           />
@@ -94,7 +99,7 @@ export default function ParticipantForm() {
             Gender
           </label>
           <select
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#004D01]"
+            className="w-full p-3 border border-gray-300 rounded-lg text-[#004D01] focus:outline-none focus:border-[#004D01]"
             value={formData.gender}
             onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
           >
@@ -113,7 +118,7 @@ export default function ParticipantForm() {
           <input
             type="text"
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#004D01]"
+            className="w-full p-3 border border-gray-300 rounded-lg text-[#004D01] focus:outline-none focus:border-[#004D01]"
             value={formData.occupation}
             onChange={(e) => setFormData({ ...formData, occupation: e.target.value })}
           />
@@ -129,7 +134,7 @@ export default function ParticipantForm() {
             <input
               type="email"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#004D01]"
+              className="w-full p-3 border border-gray-300 rounded-lg text-[#004D01] focus:outline-none focus:border-[#004D01]"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
@@ -147,6 +152,38 @@ export default function ParticipantForm() {
               onChange={(e) => setFormData({ ...formData, whatsappNumber: e.target.value })}
             />
           </div>
+
+
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-700">
+              <FontAwesomeIcon icon={faPhone} className="mr-2 text-[#004D01]" />
+              Next of Kin Number
+            </label>
+            <input
+              type="tel"
+              required
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none text-[#004D01]"
+              value={formData.nokNumber}
+              onChange={(e) => setFormData({ ...formData, nokNumber: e.target.value })}
+            />
+          </div>
+
+
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-700">
+              <FontAwesomeIcon icon={faClock} className="mr-2 text-[#004D01]" />
+              Age
+            </label>
+            <input
+              type="Number"
+              required
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none text-[#004D01]"
+              value={formData.age}
+              onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+            />
+          </div>
+
+
         </div>
 
         {/* Address */}
@@ -157,7 +194,7 @@ export default function ParticipantForm() {
           </label>
           <textarea
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#004D01]"
+            className="w-full p-3 border border-gray-300 rounded-lg text-[#004D01] focus:outline-none focus:border-[#004D01]"
             rows="4"
             value={formData.address}
             onChange={(e) => setFormData({ ...formData, address: e.target.value })}

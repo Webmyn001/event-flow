@@ -27,7 +27,7 @@ export default function Navbar() {
             <div className="flex space-x-6">
             
 
-            {/* 
+           
             
                <NavLink 
                 to="/" 
@@ -41,9 +41,9 @@ export default function Navbar() {
                 <span>Home</span>
               </NavLink>    
             
-            */}
+           
               
-             {/* 
+          
                
                 <NavLink 
                 to="/contact" 
@@ -57,9 +57,11 @@ export default function Navbar() {
                 <span>Contact Us</span>
               </NavLink>
 
-             */}
+          
               
              
+                {/* 
+                
                 <NavLink 
                 to="/" 
                 className={({ isActive }) => 
@@ -70,7 +72,9 @@ export default function Navbar() {
               >
                 <FontAwesomeIcon icon={faUserShield} />
                 <span>Admin</span>
-              </NavLink> 
+              </NavLink>      
+                
+                */}
               
             
 

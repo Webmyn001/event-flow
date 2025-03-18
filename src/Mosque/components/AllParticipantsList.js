@@ -6,8 +6,10 @@ import {
   faPhone, faMapMarkerAlt, faFilter,
   faUser, faClock, faIdBadge,
   faBriefcase,
-  faTrashAlt
+  faTrashAlt,
+  faEye
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 export default function AllParticipantsList() {
   const [participants, setParticipants] = useState([]);
@@ -85,97 +87,60 @@ export default function AllParticipantsList() {
 
       {/* Participants Table */}
       {!loading && !error && (
-        <div className="overflow-x-auto rounded-lg border">
-          <table className="min-w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="py-3 px-4 text-left text-sm font-semibold text-[#004D01]">
-                  <FontAwesomeIcon icon={faUser} className="mr-2" />
-                  Name
-                </th>
-                <th className="py-3 px-4 text-left text-sm font-semibold text-[#004D01]">
-                  <FontAwesomeIcon icon={faVenusMars} className="mr-2" />
-                  Gender
-                </th>
-                <th className="py-3 px-4 text-left text-sm font-semibold text-[#004D01]">
-                  <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
-                  Occupation
-                </th>
-                <th className="py-3 px-4 text-left text-sm font-semibold text-[#004D01]">
-                  <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
-                  Email
-                </th>
-                <th className="py-3 px-4 text-left text-sm font-semibold text-[#004D01]">
-                  <FontAwesomeIcon icon={faPhone} className="mr-2" />
-                  WhatsApp
-                </th>
-                <th className="py-3 px-4 text-left text-sm font-semibold text-[#004D01]">
-                  <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
-                  Address
-                </th>
-
-                <th className="py-3 px-4 text-left text-sm font-semibold text-red-500">
-                  Delete
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {participants.map((participant) => (
-                <tr 
-                  key={participant._id} 
-                  className="hover:bg-gray-50 transition-colors"
-                >
-                  <td className="py-3 px-4 text-gray-600 text-sm">{participant.fullName}</td>
-                  <td className="py-3 px-4 text-sm">
-                    <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                      participant.gender === 'Male' 
-                        ? 'bg-blue-100 text-blue-800' 
-                        : 'bg-pink-100 text-pink-800'
-                    }`}>
-                      {participant.gender}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4 text-sm">{participant.occupation}</td>
-                  <td className="py-3 px-4 text-sm">
-                    <a 
-                      href={`mailto:${participant.email}`}
-                      className="text-blue-600 hover:underline"
-                    >
-                      {participant.email}
-                    </a>
-                  </td>
-                  <td className="py-3 px-4 text-sm">
-                    <a
-                      href={`https://wa.me/${participant.whatsappNumber}`}
-                      className="text-green-600 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {participant.whatsappNumber}
-                    </a>
-                  </td>
-                  <td className="py-3 px-4 text-gray-600 text-sm">{participant.address}</td>
-                  <td>
-                     <button
-                                        onClick={() => handleDeleteMessage(participant._id)}
-                                        className="text-red-600 hover:text-red-800 p-2"
-                                      >
-                                        <FontAwesomeIcon icon={faTrashAlt} />
-                                      </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Empty State */}
-          {participants.length === 0 && (
-            <div className="text-center py-8 text-gray-500">
-              <FontAwesomeIcon icon={faUsers} className="text-3xl mb-3" />
-              <p>This List Is Empty</p>
-            </div>
-          )}
-        </div>
+  <div className="overflow-x-auto">
+  <table className="min-w-full">
+    <thead className="bg-gray-50">
+      <tr>
+        <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700">
+          <FontAwesomeIcon icon={faUser} className="mr-2" />
+          Name
+        </th>
+        <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700">
+          <FontAwesomeIcon icon={faVenusMars} className="mr-2" />
+          Gender
+        </th>
+        <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700">
+          <FontAwesomeIcon icon={faClock} className="mr-2" />
+          Age
+        </th>
+        <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700">
+          <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
+          Occupation
+        </th>
+        <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody className="divide-y divide-gray-200">
+      {participants.map((participant) => (
+        <tr key={participant._id} className="hover:bg-gray-50">
+          <td className="py-3 px-4 text-sm">{participant.fullName}</td>
+          <td className="py-3 px-4 text-sm">
+            <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+              participant.gender === 'Male' 
+                ? 'bg-blue-100 text-blue-800' 
+                : 'bg-pink-100 text-pink-800'
+            }`}>
+              {participant.gender}
+            </span>
+          </td>
+          <td className="py-3 px-4 text-sm">{participant.age}</td>
+          <td className="py-3 px-4 text-sm">{participant.occupation}</td>
+          <td className="py-3 px-4 text-sm">
+            <Link 
+              to={`/participant/${participant._id}`}
+              className="text-blue-600 hover:text-blue-800"
+            >
+              <FontAwesomeIcon icon={faEye} className="mr-1" />
+              View Details
+            </Link>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
       )}
     </div>
   );
