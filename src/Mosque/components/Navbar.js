@@ -29,7 +29,9 @@ export default function Navbar() {
 
            
             
-               <NavLink 
+                 {/* 
+                 
+                   <NavLink 
                 to="/" 
                 className={({ isActive }) => 
                   `flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
@@ -39,13 +41,14 @@ export default function Navbar() {
               >
                 <FontAwesomeIcon icon={faHome} />
                 <span>Home</span>
-              </NavLink>    
+              </NavLink> 
+
+                 */}
             
            
-              
           
                
-                <NavLink 
+                {/* <NavLink 
                 to="/contact" 
                 className={({ isActive }) => 
                   `flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
@@ -55,12 +58,12 @@ export default function Navbar() {
               >
                 <FontAwesomeIcon icon={faEnvelope} />
                 <span>Contact Us</span>
-              </NavLink>
+              </NavLink> */}
 
           
               
              
-                {/* 
+             
                 
                 <NavLink 
                 to="/" 
@@ -74,7 +77,7 @@ export default function Navbar() {
                 <span>Admin</span>
               </NavLink>      
                 
-                */}
+               
               
             
 

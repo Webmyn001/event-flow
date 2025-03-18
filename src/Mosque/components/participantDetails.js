@@ -7,17 +7,21 @@ import {
   faEnvelope, faPhone, faMapMarkerAlt, faArrowLeft,
   faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 export default function ParticipantDetails() {
   const { id } = useParams();
   const [participant, setParticipant] = useState([]);
   const [loading, setLoading] = useState(true);
 
+      const navigate = useNavigate()
+  
 
   const handleDeleteMessage = async (participantId) => {
     try {
       await axios.delete(`https://mosque-two.vercel.app/api/participant/${participantId}`);
       alert('Message deleted successfully');
+      navigate("/")
       window.location.reload()
     } catch (error) {
       console.error('Error deleting message:', error);
@@ -29,6 +33,7 @@ export default function ParticipantDetails() {
   useEffect(() => {
     const fetchParticipant = async () => {
       try {
+        setLoading(true)
         const response = await axios.get(`http://localhost:4000/api/participant/${id}`);
         setParticipant(response.data);
       } catch (error) {

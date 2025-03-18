@@ -18,11 +18,11 @@ function App() {
         
         <main className="flex-grow container mx-auto px-4 py-8">
           <Routes>
-            <Route path="/" element={<RegistrationForm />} />
-            <Route path="/contact" element={<ContactForm />} />
+            {/* <Route path="/" element={<RegistrationForm />} /> */}
+            {/* <Route path="/contact" element={<ContactForm />} /> */}
            
-           {/* <Route path="/" element={<AdminDashboard />} /> */}
-           {/* <Route path="/participant/:id" element={<ParticipantDetails />} /> */}
+           <Route path="/" element={<AdminDashboard />} />
+           <Route path="/participant/:id" element={<ParticipantDetails />} />
 
 
           </Routes>
