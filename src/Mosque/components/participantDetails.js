@@ -95,7 +95,7 @@ export default function ParticipantDetails() {
 
           <DetailItem 
               icon={faPhone} 
-              label="WhatsApp" 
+              label="Next of Kin Number" 
               value={participant.nokNumber}
             />
 
