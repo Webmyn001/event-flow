@@ -8,7 +8,7 @@ const AboutPage = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-indigo-600 mb-4">
-            About CampusMart
+            About Campus Crave
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Connecting campus communities through trusted exchanges since 2024

@@ -13,95 +13,96 @@ import {
   FiChevronRight, 
   FiEdit
 } from 'react-icons/fi';
-import {MdWorkspacePremium } from 'react-icons/md'
+import { MdWorkspacePremium } from 'react-icons/md';
 import AdvertisementBanner from './Advertisment';
 import ReportButton from './ReportButton';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+
+// Animation constants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      type: 'spring', 
+      stiffness: 120 
+    } 
+  }
+};
+
+const cardHoverVariants = {
+  hover: { 
+    y: -8,
+    transition: { 
+      type: 'spring', 
+      stiffness: 400 
+    }
+  }
+};
 
 const HomePage = () => {
-    const premiumSliderRef = useRef(null);
-    const urgentSliderRef = useRef(null);
-    const servicesSliderRef = useRef(null);
+  const premiumSliderRef = useRef(null);
+  const urgentSliderRef = useRef(null);
+  const servicesSliderRef = useRef(null);
 
-  // Food items data
+  // Sample data
   const foodItems = [
-    { id: 1, name: "Premium Rice", price: "₦500/cup", image: "https://picsum.photos/536/354" },
-    { id: 2, name: "Brown Beans", price: "₦700/cup", image: "https://picsum.photos/536/354" },
-    { id: 3, name: "Quality Garri", price: "₦300/cup", image: "https://picsum.photos/536/354" },
-    { id: 4, name: "Golden Spaghetti", price: "₦400/pack", image: "https://picsum.photos/536/354" },
+    { id: 1, name: "Premium Rice", price: "500/cup", image: "https://picsum.photos/536/354" },
+    { id: 2, name: "Brown Beans", price: "700/cup", image: "https://picsum.photos/536/354" },
+    { id: 3, name: "Quality Garri", price: "300/cup", image: "https://picsum.photos/536/354" },
+    { id: 4, name: "Golden Spaghetti", price: "400/pack", image: "https://picsum.photos/536/354" },
   ];
 
-  // Urgent listings data
   const urgentListings = [
-    { id: 1, title: "Calculus Textbook", price: "₦5,000", urgency: "12h left", image: "https://picsum.photos/536/354" },
-    { id: 2, title: "Gaming Laptop", price: "₦120,000", urgency: "6h left", image: "https://picsum.photos/536/354" },
-    { id: 3, title: "Designer Handbag", price: "₦25,000", urgency: "18h left", image: "https://picsum.photos/536/354" },
-    { id: 4, title: "Bicycle", price: "₦45,000", urgency: "24h left", image: "https://picsum.photos/536/354" },
-    { id: 2, title: "Gaming Laptop", price: "₦120,000", urgency: "6h left", image: "https://picsum.photos/536/354" },
-    { id: 3, title: "Designer Handbag", price: "₦25,000", urgency: "18h left", image: "https://picsum.photos/536/354" },
-    { id: 4, title: "Bicycle", price: "₦45,000", urgency: "24h left", image: "https://picsum.photos/536/354" },
+    { id: 1, title: "Calculus Textbook", price: "5,000", urgency: "12h left", image: "https://picsum.photos/536/354" },
+    { id: 2, title: "Gaming Laptop", price: "120,000", urgency: "6h left", image: "https://picsum.photos/536/354" },
+    { id: 3, title: "Designer Handbag", price: "25,000", urgency: "18h left", image: "https://picsum.photos/536/354" },
+    { id: 4, title: "Bicycle", price: "45,000", urgency: "24h left", image: "https://picsum.photos/536/354" },
   ];
 
-  // recurring services data
   const recurringServices = [
     { 
       id: 1, 
       title: "Hostel Laundry Service", 
-      price: "₦500/week", 
+      price: "500/week", 
       image: "https://picsum.photos/536/354",
       description: "Professional washing & ironing with 24h turnaround"
     },
     { 
       id: 2, 
       title: "Campus Grocery Delivery", 
-      price: "₦3,500/week", 
+      price: "3,500/week", 
       image: "https://picsum.photos/536/354",
       description: "Weekly essential food items from campus vendors"
     },
     { 
       id: 3, 
       title: "Lecture Notes Printing", 
-      price: "₦50/set", 
+      price: "50/set", 
       image: "https://picsum.photos/536/354",
       description: "Quality printed notes with binding and delivery"
     },
     { 
       id: 4, 
       title: "Drinking Water Supply", 
-      price: "₦1,200/month", 
+      price: "1,200/month", 
       image: "https://picsum.photos/536/354",
       description: "Daily 20L water dispenser delivery"
     },
-    { 
-      id: 5, 
-      title: "Hair Salon Bookings", 
-      price: "₦2,500/month", 
-      image: "https://picsum.photos/536/354",
-      description: "Weekly styling appointments at campus salon"
-    },
-    { 
-      id: 6, 
-      title: "Cooking Gas Refills", 
-      price: "₦4,000/refill", 
-      image: "https://picsum.photos/536/354",
-      description: "6kg gas cylinder delivery & pickup"
-    },
-    { 
-      id: 7, 
-      title: "Stationery Supplies", 
-      price: "₦1,000/month", 
-      image: "https://picsum.photos/536/354",
-      description: "Monthly customized stationery package"
-    },
-    { 
-      id: 8, 
-      title: "WiFi Data Plans", 
-      price: "₦2,500/month", 
-      image: "https://picsum.photos/536/354",
-      description: "Unlimited campus area WiFi access"
-    }
   ];
-
 
   const faqs = [
     { 
@@ -122,6 +123,7 @@ const HomePage = () => {
     },
   ];
 
+  // Slider scroll functionality
   const scrollSlider = (ref, direction) => {
     if (ref.current) {
       const scrollAmount = ref.current.offsetWidth * 0.8;
@@ -132,19 +134,10 @@ const HomePage = () => {
     }
   };
 
-
-
-
-
-
-
-
-
+  // Reviews state management
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -160,60 +153,53 @@ const HomePage = () => {
     };
 
     fetchReviews();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
-  if (isLoading) {
-    return <div className="text-center py-4">Loading reviews...</div>;
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-4 text-red-500">
-        Error: {error}
-      </div>
-    );
-  }
-
+  //if (isLoading) return <div className="text-center py-4">Loading reviews...</div>;
+  //if (error) return <div className="text-center py-4 text-red-500">Error: {error}</div>;
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-12 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex flex-col items-center gap-4 mb-8">
-            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-              <span className="text-2xl">🏫</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold">
-              Obafemi Awolowo University
-            </h1>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Campus<span className="text-yellow-400">Crave</span>
-          </h2>
-          <p className="text-lg md:text-xl mb-8">
-            Fajuyi Hall's Official Student Marketplace
-          </p>
-          <Link 
-            to="/listings"
-            className="inline-flex items-center bg-white text-indigo-600 px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-all text-sm md:text-base"
+      <section className="bg-gradient-to-br from-indigo-700 to-purple-600 text-white py-16 px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-6xl mx-auto text-center space-y-6"
+        >
+        
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-300 to-amber-400 bg-clip-text text-transparent"
           >
-            Start Trading <FiArrowRight className="ml-2" />
-          </Link>
-        </div>
+            Campus<span className="text-white">Crave</span> Marketplace
+          </motion.h2>
+          <p className="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto leading-relaxed">
+            Safe . Reliable . Student-Focused Training
+          </p>
+          <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }}>
+            <h2 
+              
+              className="inline-flex items-center bg-white/90 backdrop-blur-sm text-indigo-700 px-8 py-4 rounded-full font-semibold hover:bg-white transition-all text-lg shadow-lg hover:shadow-xl"
+            >
+              Crave for it and Get it Quickly.
+            </h2>
+          </motion.div>
+        </motion.div>
       </section>
 
-      <AdvertisementBanner/>
+      <AdvertisementBanner />
 
       {/* Premium Listings Section */}
       <section className="max-w-7xl mx-auto py-12 px-4">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div className="bg-gradient-to-r from-purple-600 to-blue-500 p-2 rounded-lg">
+        <div className="flex items-center justify-between mb-8">
+          <motion.div className="flex items-center gap-4" variants={itemVariants}>
+            <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-2 rounded-lg shadow-md">
               <MdWorkspacePremium className="text-2xl text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Premium Listings</h2>
-          </div>
+            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Premium Listings</h2>
+          </motion.div>
           <div className="hidden md:flex gap-2">
             <button 
               onClick={() => scrollSlider(premiumSliderRef, 'prev')}
@@ -230,54 +216,64 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div 
+        <motion.div 
           ref={premiumSliderRef}
           className="flex gap-6 overflow-x-auto scrollbar-hide pb-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
         >
           {urgentListings.map((item) => (
-            <div 
+            <motion.div 
               key={item.id}
-              className="flex-shrink-0 w-72 bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow"
+              variants={itemVariants}
+              whileHover="hover"
+              className="flex-shrink-0 w-72 bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow group"
             >
-              <div className="relative aspect-square rounded-xl overflow-hidden mb-4">
-                <div/>
-                <img alt={item.title} src={item.image} className='object-cover h-[300px]'/>
-                <span className="absolute top-3 left-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white px-3 py-1 rounded-full text-sm">
+              <motion.div 
+                className="relative aspect-square rounded-xl overflow-hidden mb-4"
+                variants={cardHoverVariants}
+              >
+                <img 
+                  alt={item.title} 
+                  src={item.image} 
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                />
+                <span className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 py-1 rounded-full text-sm shadow-sm">
                   Premium
                 </span>
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              </motion.div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{item.title}</h3>
               <p className="text-xl font-bold text-purple-600 mb-4">{item.price}</p>
               <Link
                 to="/details"
                 state={item}
-                className="block w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white py-2 text-center rounded-lg hover:opacity-90 transition-opacity"
+                className="block w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 text-center rounded-lg hover:opacity-90 transition-opacity font-medium"
               >
                 View Details
               </Link>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-8">
           <Link 
             to="/premiumlistings" 
-            className="inline-block bg-gradient-to-r from-purple-600 to-blue-500 text-[14px] text-white px-6 py-2 rounded-full "
+            className="inline-block bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-8 py-3 rounded-full font-medium shadow-md hover:shadow-lg transition-shadow"
           >
-            View Full Premium Listings →
+            Explore Premium Listings →
           </Link>
         </div>
       </section>
 
-
-       {/* Urgent Listings Section */}
-       <section className="max-w-7xl mx-auto py-12 px-4">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div className="bg-gradient-to-r from-red-500 to-orange-400 p-2 rounded-lg">
+      {/* Urgent Listings Section */}
+      <section className="max-w-7xl mx-auto py-12 px-4">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="bg-gradient-to-r from-red-500 to-orange-400 p-2 rounded-lg shadow-md">
               <FiAlertTriangle className="text-2xl text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Urgent Listings</h2>
+            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Urgent Listings</h2>
           </div>
           <div className="hidden md:flex gap-2">
             <button 
@@ -295,161 +291,240 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div 
+        <motion.div 
           ref={urgentSliderRef}
           className="flex gap-6 overflow-x-auto scrollbar-hide pb-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
         >
           {urgentListings.map((item) => (
-            <div 
+            <motion.div 
               key={item.id}
-              className="flex-shrink-0 w-72 bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow"
+              variants={itemVariants}
+              whileHover="hover"
+              className="flex-shrink-0 w-72 bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow group"
             >
-              <div className="relative aspect-square rounded-xl overflow-hidden mb-4">
-                <div/>
-                <img alt={item.title} src={item.image} className='object-cover h-[300px]'/>
-                <span className="absolute top-3 left-3 bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+              <motion.div 
+                className="relative aspect-square rounded-xl overflow-hidden mb-4"
+                variants={cardHoverVariants}
+              >
+                <img 
+                  alt={item.title} 
+                  src={item.image} 
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                />
+                <span className="absolute top-3 left-3 bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm flex items-center gap-1 shadow-sm">
                   <FiAlertTriangle className="w-4 h-4" /> {item.urgency}
                 </span>
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              </motion.div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{item.title}</h3>
               <p className="text-xl font-bold text-red-600 mb-4">{item.price}</p>
               <Link
                 to="/details"
                 state={item}
-                className="block w-full bg-gradient-to-r from-red-500 to-orange-400 text-white py-2 text-center rounded-lg hover:opacity-90 transition-opacity"
+                className="block w-full bg-gradient-to-r from-red-500 to-orange-400 text-white py-3 text-center rounded-lg hover:opacity-90 transition-opacity font-medium"
               >
                 Buy Now
               </Link>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-8">
           <Link 
             to="/urgentlistings" 
-            className="inline-block bg-gradient-to-r from-red-500 to-orange-400 text-[14px] text-white px-6 py-2 rounded-full "
+            className="inline-block bg-gradient-to-r from-red-500 to-orange-400 text-white px-8 py-3 rounded-full font-medium shadow-md hover:shadow-lg transition-shadow"
           >
-            View Full Urgent Listings →
+            View Urgent Listings →
           </Link>
         </div>
       </section>
 
+      {/* Report Button */}
+      <ReportButton />
 
       {/* Recurring Services Section */}
       <section className="max-w-7xl mx-auto py-12 px-4">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div className="bg-gradient-to-r from-amber-600 to-yellow-400 p-2 rounded-lg">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="bg-gradient-to-r from-amber-500 to-yellow-400 p-2 rounded-lg shadow-md">
               <FiRepeat className="text-2xl text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Recurring Services</h2>
+            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Recurring Services</h2>
           </div>
           <div className="hidden md:flex gap-2">
             <button 
               onClick={() => scrollSlider(servicesSliderRef, 'prev')}
-              className="p-2 hover:bg-amber-100 rounded-full text-amber-600"
+              className="p-2 hover:bg-amber-100 rounded-full text-amber-500"
             >
               <FiChevronLeft className="w-6 h-6" />
             </button>
             <button 
               onClick={() => scrollSlider(servicesSliderRef, 'next')}
-              className="p-2 hover:bg-amber-100 rounded-full text-amber-600"
+              className="p-2 hover:bg-amber-100 rounded-full text-amber-500"
             >
               <FiChevronRight className="w-6 h-6" />
             </button>
           </div>
         </div>
 
-        <div 
+        <motion.div 
           ref={servicesSliderRef}
           className="flex gap-6 overflow-x-auto scrollbar-hide pb-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
         >
           {recurringServices.map((service) => (
-            <div 
+            <motion.div 
               key={service.id}
-              className="flex-shrink-0 w-72 bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow"
+              variants={itemVariants}
+              whileHover="hover"
+              className="flex-shrink-0 w-72 bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow group"
             >
-              <div className="relative aspect-square rounded-xl overflow-hidden mb-4">
-                <div />
-                <img alt={service.title} src={service.image} className='object-cover h-[300px]'/>
-                <span className="absolute top-3 left-3 bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-sm">
+              <motion.div 
+                className="relative aspect-square rounded-xl overflow-hidden mb-4"
+                variants={cardHoverVariants}
+              >
+                <img 
+                  alt={service.title} 
+                  src={service.image} 
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                />
+                <span className="absolute top-3 left-3 bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-sm shadow-sm">
                   Recurring
                 </span>
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
-              <p className="text-amber-600 font-bold mb-2">{service.price}</p>
+              </motion.div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{service.title}</h3>
+              <p className="text-xl font-bold text-amber-600 mb-2">{service.price}</p>
               <p className="text-gray-600 text-sm mb-4 line-clamp-2">{service.description}</p>
               <Link
                 to="/details"
                 state={{ service }}
-                className="block w-full bg-gradient-to-r from-amber-600 to-yellow-400 text-white py-2 text-center rounded-lg hover:opacity-90 transition-opacity"
+                className="block w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-white py-3 text-center rounded-lg hover:opacity-90 transition-opacity font-medium"
               >
                 Subscribe Now
               </Link>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-8">
           <Link 
-            to="/viplistings" 
-            className="inline-block bg-gradient-to-r text-[14px] from-amber-600 to-yellow-400 text-white px-6 py-2 rounded-full "
+            to="/recurringservices" 
+            className="inline-block bg-gradient-to-r from-amber-500 to-yellow-400 text-white px-8 py-3 rounded-full font-medium shadow-md hover:shadow-lg transition-shadow"
           >
-            View Full Recurring Listings →
+            Browse Services →
           </Link>
         </div>
       </section>
 
-      <ReportButton />
-
-
-
-       {/* Food Items Section */}
-       <section className="max-w-6xl mx-auto py-12 px-4">
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-          <div className="flex flex-col md:flex-row gap-6 mb-8">
-            <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">🛍️ Trade With Us</h2>
-              <p className="text-gray-600 mb-6">
-                Get daily affordable meals and groceries delivered straight to your hall! 
-                Enjoy student-exclusive prices with guaranteed quality.
-              </p>
+         {/* Food Items Section */}
+         <section className="max-w-6xl mx-auto py-12 px-4">
+        <motion.div 
+          className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-[2.5rem] shadow-xl p-8 md:p-12 transition-all hover:shadow-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="flex flex-col md:flex-row gap-8 mb-10"
+          >
+            <div className="flex-1 space-y-5 max-w-prose">
+              <motion.h2 
+                variants={itemVariants}
+                className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight"
+              >
+                🛍️ Campus Market Hub
+              </motion.h2>
+              
+              <motion.p 
+                variants={itemVariants}
+                className="text-gray-700 text-lg md:text-xl leading-relaxed font-[450]"
+              >
+                Discover daily affordable meals and groceries delivered straight to your hall! 
+                Enjoy exclusive student prices with premium quality guaranteed.
+              </motion.p>
             </div>
-            <div className="w-full md:w-1/3 bg-gray-100 rounded-xl p-4">
-              <div className="flex items-center gap-3">
-                <FiMapPin className="text-3xl text-red-500" />
+            
+            <motion.div 
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className="w-full md:w-1/3 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-indigo-50"
+            >
+              <div className="flex items-center gap-4">
+                <motion.div 
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ repeat: Infinity, duration: 4 }}
+                  className="p-3 bg-indigo-100 rounded-xl"
+                >
+                  <FiMapPin className="text-xl text-indigo-600" />
+                </motion.div>
                 <div>
-                  <p className="font-semibold">Our Location</p>
-                  <p className="text-sm text-gray-600">Fajuyi Hall Shopping Complex</p>
+                  <p className="font-semibold text-gray-800 text-lg">Our Location</p>
+                  <p className="text-gray-600 mt-1.5">Fajuyi Hall Shopping Complex</p>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10"
+          >
             {foodItems.map((item) => (
-              <div key={item.id} className="bg-gray-50 rounded-xl p-4 hover:shadow-md transition-shadow">
-                <img alt={item.title} src={item.image} className='object-cover h-[250px] w-fit aspect-square rounded-lg mb-4'/>
-                <h3 className="font-semibold mb-2">{item.name}</h3>
-                <p className="text-indigo-600 font-bold">{item.price}</p>
-              </div>
+              <motion.div 
+                key={item.id}
+                variants={itemVariants}
+                whileHover="hover"
+                className="group bg-white rounded-2xl p-5 shadow-md hover:shadow-lg transition-all duration-200"
+              >
+                <motion.div 
+                  variants={cardHoverVariants}
+                  className="relative overflow-hidden rounded-xl mb-4 aspect-square"
+                >
+                  <img 
+                    alt={item.name} 
+                    src={item.image} 
+                    className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                  />
+                </motion.div>
+                <h3 className="font-semibold text-gray-800 text-lg mb-2 text-center">{item.name}</h3>
+                <p className="text-indigo-600 font-bold text-xl text-center">₦{item.price}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="text-center">
-            <button className="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors">
-              <FiShoppingBag className="inline mr-2" />
-              Order Now (Contact Seller)
-            </button>
-          </div>
-        </div>
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-center"
+          >
+            <Link to="/contactseller">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-10 py-4 rounded-[2rem] font-semibold text-lg hover:shadow-xl transition-all inline-flex items-center gap-3 shadow-lg"
+            >
+              <FiShoppingBag className="text-xl" />
+              Order Now - Contact Seller
+            </motion.button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </section>
 
-      
-       
+          {/* Report Button  */}
+      <ReportButton />
 
-      
-     {/* Reviews Section */}
+           {/* Reviews Section */}
 <section className="max-w-6xl mx-auto py-8 md:py-12 px-4">
   <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
     <div className="flex items-center justify-between mb-6">
@@ -515,8 +590,6 @@ const HomePage = () => {
         </div>
       </section>
     </div>
-
-
   );
 };
 

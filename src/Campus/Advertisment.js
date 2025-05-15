@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FiCheckCircle, FiStar, FiZap } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 
 const AdvertisementBanner = () => {
@@ -123,9 +124,11 @@ const AdvertisementBanner = () => {
             </div>
 
             <div className="flex flex-col gap-4">
-              <button className="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-8 py-4 rounded-xl hover:opacity-90 transition-opacity font-semibold text-lg shadow-lg hover:shadow-purple-200/50 transition-shadow">
+              <Link to="/details">
+              <button className="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-8 py-4 rounded-xl hover:opacity-90  font-semibold text-lg shadow-lg hover:shadow-purple-200/50 transition-shadow">
                 View Full Details →
               </button>
+              </Link>
               <div className="flex items-center gap-2 text-gray-600 text-sm">
                 <FiCheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                 <span>Verified Campus Seller · Secure Transactions</span>

@@ -122,7 +122,7 @@ const ListingDetails = () => {
                 </div>
               </div>
               <Link 
-                to={`/transactions/${listing.id}`}
+                to={"/contactseller"}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-medium flex items-center justify-center transition-colors"
               >
                 Contact Seller
