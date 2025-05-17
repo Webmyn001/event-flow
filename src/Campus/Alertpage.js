@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import { FiAlertCircle, FiCheckCircle, FiChevronDown, FiUpload, FiClock, FiLoader } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiChevronDown, FiUpload, FiClock, FiLoader, FiShield } from 'react-icons/fi';
 
 const ReportScamPage = () => {
   const [isExpanded, setIsExpanded] = useState(null);
@@ -16,7 +16,6 @@ const ReportScamPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // GET Recent Reports
   const fetchReports = async () => {
     try {
       setLoading(true);
@@ -30,31 +29,20 @@ const ReportScamPage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchReports();
-  }, []);
+  useEffect(() => { fetchReports(); }, []);
 
-  // POST Report
   const submitReport = async (formData) => {
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      };
-
       const formPayload = new FormData();
       formPayload.append('scamType', formData.scamType);
       formPayload.append('description', formData.description);
       formPayload.append('contactInfo', formData.contactInfo);
       if (formData.files) {
-        Array.from(formData.files).forEach(file => {
-          formPayload.append('files', file);
-        });
+        Array.from(formData.files).forEach(file => formPayload.append('files', file));
       }
 
-      await axios.post('https://api.yourservice.com/reports', formPayload, config);
-      await fetchReports(); // Refresh reports after submission
+      await axios.post('https://api.yourservice.com/reports', formPayload);
+      await fetchReports();
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
     } catch (err) {
@@ -70,102 +58,108 @@ const ReportScamPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-blue-50 py-6 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-blue-50 py-8 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
         className="max-w-7xl mx-auto"
       >
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-12">
           <motion.h1 
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
-            className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-3"
+            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent mb-4 flex items-center justify-center gap-3"
           >
-            <FiAlertCircle className="text-red-600 w-8 h-8" />
-            Report Scam Incident
+            <FiShield className="w-8 h-8 text-indigo-600" />
+            Protect Our Community
           </motion.h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-            Help protect our community by reporting suspicious activities. All reports are anonymous and will be 
-            investigated by campus security.
+          <p className="text-gray-600 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+            Help maintain campus safety by reporting suspicious activities. All reports are anonymous and reviewed 
+            within 24 hours by our security team.
           </p>
         </div>
 
+        {/* Error Message */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg flex items-center gap-3">
-            <FiAlertCircle className="w-5 h-5" />
-            {error}
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-6 p-4 bg-red-50/90 backdrop-blur-sm rounded-xl flex items-center gap-3 border border-red-200"
+          >
+            <FiAlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+            <span className="text-red-700">{error}</span>
+          </motion.div>
         )}
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Report Form */}
           <motion.form 
             onSubmit={handleSubmit}
-            className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 lg:sticky lg:top-8"
+            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 lg:p-8 border border-gray-100 lg:sticky lg:top-8"
           >
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Submit Report</h2>
+            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
+              Report Incident
+            </h2>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Scam Type *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">Scam Type *</label>
                 <select
                   value={formData.scamType}
                   onChange={(e) => setFormData({ ...formData, scamType: e.target.value })}
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/50"
                   required
                 >
                   <option value="">Select scam type</option>
                   <option>Financial Fraud</option>
-                  <option>Phishing</option>
+                  <option>Phishing Scam</option>
                   <option>Fake Marketplace</option>
                   <option>Identity Theft</option>
+                  <option>Impersonation</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">Description *</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-32"
-                  placeholder="Provide detailed information about the incident..."
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-40 bg-white/50"
+                  placeholder="Provide detailed information (location, time, people involved, etc.)"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Contact Information</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">Contact for Follow-up</label>
                 <input
                   type="email"
                   value={formData.contactInfo}
                   onChange={(e) => setFormData({ ...formData, contactInfo: e.target.value })}
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Optional email for follow-up"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  placeholder="Optional secure email for updates"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Upload Evidence</label>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <label className="cursor-pointer flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm">
-                    <FiUpload className="w-4 h-4" />
-                    <span>Choose Files</span>
-                    <input
-                      type="file"
-                      multiple
-                      onChange={(e) => setFormData({ ...formData, files: e.target.files })}
-                      className="hidden"
-                    />
-                  </label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">Upload Evidence</label>
+                <label className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-gray-300 hover:border-indigo-400 transition-colors cursor-pointer bg-white/50">
+                  <FiUpload className="w-6 h-6 text-indigo-600" />
+                  <span className="text-indigo-600 font-medium">Choose files or drag here</span>
                   <span className="text-sm text-gray-500">
                     {formData.files?.length > 0 ? 
                       `${formData.files.length} file${formData.files.length > 1 ? 's' : ''} selected` : 
-                      'No files selected'}
+                      'Max 5 files (PNG, JPG, PDF)'}
                   </span>
-                </div>
+                  <input
+                    type="file"
+                    multiple
+                    onChange={(e) => setFormData({ ...formData, files: e.target.files })}
+                    className="hidden"
+                    accept=".png,.jpg,.jpeg,.pdf"
+                  />
+                </label>
               </div>
 
               <motion.button
@@ -173,30 +167,35 @@ const ReportScamPage = () => {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 text-white py-2.5 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm sm:text-base flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-3.5 px-6 rounded-xl font-semibold hover:from-indigo-700 hover:to-blue-600 transition-all shadow-lg hover:shadow-indigo-200/50 flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
-                    <FiLoader className="animate-spin w-4 h-4" />
-                    Submitting...
+                    <FiLoader className="animate-spin w-5 h-5" />
+                    Securing Report...
                   </>
                 ) : (
-                  'Submit Report'
+                  <>
+                    <FiShield className="w-5 h-5" />
+                    Submit Anonymously
+                  </>
                 )}
               </motion.button>
             </div>
           </motion.form>
 
-          {/* Recent Scams */}
-          <div className="mt-6 md:mt-0">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Recent Reports</h2>
+          {/* Recent Reports */}
+          <div className="lg:pl-8">
+            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
+              Recent Alerts
+            </h2>
             {loading ? (
-              <div className="flex items-center justify-center gap-2 text-gray-500">
-                <FiLoader className="animate-spin w-5 h-5" />
-                Loading reports...
+              <div className="flex items-center justify-center gap-3 p-6 text-gray-500">
+                <FiLoader className="animate-spin w-6 h-6" />
+                <span>Loading security updates...</span>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <AnimatePresence>
                   {scamReports.map((report) => (
                     <motion.div
@@ -204,24 +203,32 @@ const ReportScamPage = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="bg-white rounded-lg shadow-sm overflow-hidden"
+                      className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden"
                     >
                       <div 
-                        className="p-3 sm:p-4 cursor-pointer" 
+                        className="p-4 cursor-pointer hover:bg-gray-50/50 transition-colors"
                         onClick={() => setIsExpanded(isExpanded === report.id ? null : report.id)}
                       >
-                        <div className="flex justify-between items-center gap-3">
+                        <div className="flex justify-between items-center gap-4">
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-medium text-sm sm:text-base truncate">{report.title}</h3>
-                            <div className="flex items-center gap-2 mt-1 text-xs sm:text-sm text-gray-500">
-                              <FiClock className="w-3.5 h-3.5 flex-shrink-0" />
-                              <span>{new Date(report.date).toLocaleDateString()}</span>
+                            <div className="flex items-center gap-3 mb-2">
+                              <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                report.status === 'Active' ? 'bg-red-100 text-red-800' :
+                                report.status === 'Resolved' ? 'bg-green-100 text-green-800' :
+                                'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {report.status}
+                              </span>
+                              <span className="text-sm text-gray-500">
+                                {new Date(report.date).toLocaleDateString()}
+                              </span>
                             </div>
+                            <h3 className="font-semibold text-gray-900 truncate">{report.title}</h3>
                           </div>
                           <motion.div
                             animate={{ rotate: isExpanded === report.id ? 180 : 0 }}
                           >
-                            <FiChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
+                            <FiChevronDown className="w-5 h-5 text-gray-500" />
                           </motion.div>
                         </div>
                       </div>
@@ -232,16 +239,21 @@ const ReportScamPage = () => {
                         className="overflow-hidden"
                       >
                         <div className="px-4 pb-4 border-t border-gray-100">
-                          <div className="mt-3 flex items-center gap-2">
-                            <span className={`px-2 py-1 rounded-full text-xs ${
-                              report.status === 'Active' ? 'bg-red-100 text-red-800' :
-                              report.status === 'Resolved' ? 'bg-green-100 text-green-800' :
-                              'bg-yellow-100 text-yellow-800'
-                            }`}>
-                              {report.status}
-                            </span>
+                          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                            <div className="flex items-center gap-2 text-sm">
+                              <FiAlertCircle className="w-4 h-4 text-indigo-600" />
+                              <span className="font-medium">Type:</span>
+                              <span>{report.type}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <FiClock className="w-4 h-4 text-indigo-600" />
+                              <span className="font-medium">Reported:</span>
+                              <span>{new Date(report.date).toLocaleString()}</span>
+                            </div>
                           </div>
-                          <p className="mt-2 text-gray-600 text-sm sm:text-base">{report.description}</p>
+                          <p className="mt-4 text-gray-600 text-sm leading-relaxed">
+                            {report.description}
+                          </p>
                         </div>
                       </motion.div>
                     </motion.div>
@@ -259,10 +271,13 @@ const ReportScamPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-white shadow-lg rounded-lg p-3 sm:p-4 flex items-center gap-2 text-sm sm:text-base"
+              className="fixed bottom-6 right-6 bg-white/90 backdrop-blur-sm shadow-xl rounded-xl p-4 flex items-center gap-3 border border-gray-100"
             >
-              <FiCheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-              <span>Report submitted successfully!</span>
+              <FiCheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+              <div>
+                <p className="font-medium text-gray-900">Report Submitted</p>
+                <p className="text-sm text-gray-600">Our security team will review it shortly</p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
