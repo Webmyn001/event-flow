@@ -68,7 +68,7 @@ export default function RegistrationForm({ onSubmit }) {
               <input
                 type="text"
                 required
-                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                className="w-full pl-10 pr-4 py-3 uppercase rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={formData.initials}
                 onChange={(e) => setFormData({ ...formData, initials: e.target.value })}
                 maxLength="3"
