@@ -3,7 +3,6 @@ import Header from './Header';
 import EventItem from './EventItem';
 import NotesSection from './NotesSection';
 import { HiCalendar, HiLocationMarker } from 'react-icons/hi';
-import Footer from './Footer';
 
 const dummyEvents = [
   { 
