@@ -35,7 +35,7 @@ export default function RegistrationForm({ onSubmit }) {
           animate={{ opacity: 1 }}
           className="text-center mb-8"
         >
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Event Registration</h2>
+         
           <p className="text-gray-500">Join us for an amazing experience</p>
         </motion.div>
 
