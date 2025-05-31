@@ -143,12 +143,22 @@ export default function WelcomeAndRegistration() {
     return organizerData?.name || 'Global Tech Summit';
   };
 
-  // Get event year with fallback
-  const getEventYear = () => {
-    if (loadingOrganizer) return '2025';
-    return organizerData?.date 
-      ? new Date(organizerData.date).getFullYear() 
-      : '2025';
+  
+
+  // Format date to readable string
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Date not set';
+    
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    } catch {
+      return 'Invalid Date';
+    }
   };
 
   return (
@@ -159,10 +169,11 @@ export default function WelcomeAndRegistration() {
     >
       <div className="max-w-md mx-auto">
         {/* Animated Header */}
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
+        <motion.div 
+          initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="text-center mb-10"
+          transition={{ duration: 0.6 }}
+          className="mb-8 text-center space-y-4"
         >
           {loadingOrganizer ? (
             <div className="flex flex-col items-center">
@@ -170,19 +181,50 @@ export default function WelcomeAndRegistration() {
               <p className="text-gray-500">Loading event details...</p>
             </div>
           ) : (
-            <>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                {getEventName()}
-                <span className="block text-2xl text-blue-600 mt-2">
-                  {organizerData?.date ? new Date(organizerData.date).getFullYear() : '2025'}
-                </span>
-              </h1>
-              {organizerData?.location && (
-                <p className="text-gray-500 mt-2">
-                  {organizerData.location}
-                </p>
+            <div className="flex flex-col items-center justify-center">
+              {/* Logo - Only shown if exists in organizerData */}
+              {organizerData?.logoUrl && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="mb-4"
+                >
+                  <img 
+                    src={organizerData.logoUrl} 
+                    alt={`${organizerData.name || 'Event'} logo`}
+                    className="w-[132px] h-[132px] object-cover rounded-lg shadow-md border border-gray-100"
+                  />
+                </motion.div>
               )}
-            </>
+              
+              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {getEventName()}
+            
+              </h1>
+              
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="flex flex-col items-center justify-center gap-6 text-gray-600 mt-4"
+              >
+                {organizerData?.location && (
+                  <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
+                    <HiLocationMarker className="w-5 h-5 text-purple-600" />
+                    <span className="font-medium">{organizerData.location}</span>
+                  </div>
+                )}
+                {organizerData?.date && (
+                  <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
+                    <HiCalendar className="w-5 h-5 text-blue-600" />
+                    <span className="font-medium">
+                      {formatDate(organizerData.date)}
+                    </span>
+                  </div>
+                )}
+              </motion.div>
+            </div>
           )}
         </motion.div>
 

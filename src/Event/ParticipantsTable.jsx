@@ -41,9 +41,10 @@ export default function ParticipantsTable() {
     }
   };
 
+
   const filteredParticipants = data.filter(participant =>
     participant.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    participant.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    participant.emailAddress?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     participant.role?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -106,6 +107,9 @@ export default function ParticipantsTable() {
                     Role
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Submitted Time
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -122,12 +126,12 @@ export default function ParticipantsTable() {
                       {participant.fullName}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {participant.email}
+                      {participant.emailAddress}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {participant.phoneNumber}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
                       {participant.gender}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -140,6 +144,9 @@ export default function ParticipantsTable() {
                       }`}>
                         {participant.role}
                       </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {participant.submittedTime}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       <button
