@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios'; // Import axios
 
 export default function EventForm() {
   const [formData, setFormData] = useState({
@@ -11,26 +12,45 @@ export default function EventForm() {
     noteTitle: '',
     noteUrl: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // API call to add event
-    console.log('New event added:', formData);
-    alert('Event added successfully!');
-    setFormData({
-      title: '',
-      time: '',
-      duration: '',
-      handler: '',
-      status: 'upcoming',
-      noteTitle: '',
-      noteUrl: '',
-    });
+    setIsSubmitting(true);
+    
+    try {
+      // Prepare data for API
+      const payload = {
+        ...formData,
+        duration: Number(formData.duration) // Convert duration to number
+      };
+
+      // Make POST request
+      await axios.post('http://localhost:5000/api/events', payload);
+
+      alert('Event added successfully!');
+      
+      // Reset form
+      setFormData({
+        title: '',
+        time: '',
+        duration: '',
+        handler: '',
+        status: 'upcoming',
+        noteTitle: '',
+        noteUrl: '',
+      });
+    } catch (error) {
+      console.error('Error adding event:', error);
+      alert(`Failed to add event: ${error.response?.data?.message || error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -131,9 +151,14 @@ export default function EventForm() {
         
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+          disabled={isSubmitting}
+          className={`bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors ${
+            isSubmitting 
+              ? 'opacity-50 cursor-not-allowed' 
+              : 'hover:bg-blue-700'
+          }`}
         >
-          Add Event
+          {isSubmitting ? 'Adding Event...' : 'Add Event'}
         </button>
       </form>
     </motion.div>

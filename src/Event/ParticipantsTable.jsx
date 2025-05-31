@@ -1,20 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-
-const dummyParticipants = [
-  { id: 1, fullName: 'John Smith', email: 'john@example.com', phone: '555-1234', gender: 'Male', role: 'Audience', arrivalTime: '09:15 AM' },
-  { id: 2, fullName: 'Sarah Johnson', email: 'sarah@example.com', phone: '555-5678', gender: 'Female', role: 'Guest Speaker', arrivalTime: '08:45 AM' },
-  { id: 3, fullName: 'Michael Brown', email: 'michael@example.com', phone: '555-9012', gender: 'Male', role: 'Organizer', arrivalTime: '07:30 AM' },
-  { id: 4, fullName: 'Emily Davis', email: 'emily@example.com', phone: '555-3456', gender: 'Female', role: 'Audience', arrivalTime: '09:05 AM' },
-];
+import axios from 'axios';
 
 export default function ParticipantsTable() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filteredParticipants = dummyParticipants.filter(participant =>
-    participant.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    participant.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    participant.role.toLowerCase().includes(searchTerm.toLowerCase())
+  // Fetch participants from API
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('http://localhost:5000/api/form');
+      setData(response.data);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching participants:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Handle participant deletion
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this participant?')) {
+      try {
+        await axios.delete(`http://localhost:5000/api/form/${id}`);
+        // Update UI by removing the deleted participant
+        setData(data.filter(participant => participant._id !== id));
+      } catch (error) {
+        console.error('Error deleting participant:', error);
+        alert(`Failed to delete participant: ${error.response?.data?.message || error.message}`);
+      }
+    }
+  };
+
+  const filteredParticipants = data.filter(participant =>
+    participant.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    participant.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    participant.role?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -40,74 +70,97 @@ export default function ParticipantsTable() {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Full Name
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Phone
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Gender
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Role
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Arrival Time
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {filteredParticipants.map((participant) => (
-              <motion.tr
-                key={participant.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="hover:bg-gray-50"
-              >
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {participant.fullName}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {participant.email}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {participant.phone}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {participant.gender}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    participant.role === 'Organizer' 
-                      ? 'bg-blue-100 text-blue-800' 
-                      : participant.role === 'Guest Speaker'
-                      ? 'bg-purple-100 text-purple-800'
-                      : 'bg-green-100 text-green-800'
-                  }`}>
-                    {participant.role}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {participant.arrivalTime}
-                </td>
-              </motion.tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {filteredParticipants.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500">No participants found matching your search</p>
+      {loading ? (
+        <div className="text-center py-8">
+          <p className="text-gray-500">Loading participants...</p>
         </div>
+      ) : error ? (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6 text-center">
+          <p>Error: {error}</p>
+          <button 
+            onClick={fetchData}
+            className="mt-2 bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Full Name
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Email
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Phone
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Gender
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Role
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredParticipants.map((participant) => (
+                  <motion.tr
+                    key={participant._id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="hover:bg-gray-50"
+                  >
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {participant.fullName}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {participant.email}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {participant.phoneNumber}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {participant.gender}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        participant.role === 'organizer' 
+                          ? 'bg-blue-100 text-blue-800' 
+                          : participant.role === 'guest lecturer'
+                          ? 'bg-purple-100 text-purple-800'
+                          : 'bg-green-100 text-green-800'
+                      }`}>
+                        {participant.role}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <button
+                        onClick={() => handleDelete(participant._id)}
+                        className="text-red-600 hover:text-red-900 font-medium"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {filteredParticipants.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No participants found</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

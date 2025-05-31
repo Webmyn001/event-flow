@@ -13,7 +13,12 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-8 sm:py-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-gray-600">
           <div className="text-sm">
-            © {currentYear} Tech Conference. All rights reserved.
+           EventFlow © {currentYear}  All rights reserved.
+          </div>
+
+          <div className="text-sm">
+            <h3>09164028709 , 09164028709</h3>
+
           </div>
           
           <div className="flex items-center gap-2 text-sm">
