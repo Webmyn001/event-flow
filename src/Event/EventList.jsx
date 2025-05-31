@@ -110,6 +110,8 @@ export default function EventList() {
                   <p>
                     {event.time || 'No time'} • 
                     {event.duration ? ` ${event.duration} min` : ' Duration not set'} • 
+                  </p>
+                  <p>
                     {event.handler || 'No handler'}
                   </p>
                   {event.noteTitle && (
@@ -123,7 +125,7 @@ export default function EventList() {
                         href={event.noteUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 text-[13px] hover:underline"
                       >
                         View Notes
                       </a>
