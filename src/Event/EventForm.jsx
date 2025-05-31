@@ -31,7 +31,7 @@ export default function EventForm() {
       };
 
       // Make POST request
-      await axios.post('http://localhost:5000/api/events', payload);
+      await axios.post('https://eventflow-five.vercel.app/api/events', payload);
 
       alert('Event added successfully!');
       

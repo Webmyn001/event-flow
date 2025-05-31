@@ -12,7 +12,7 @@ export default function ParticipantsTable() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/form');
+      const response = await axios.get('https://eventflow-five.vercel.app/api/form');
       setData(response.data);
       setError(null);
     } catch (err) {
@@ -31,7 +31,7 @@ export default function ParticipantsTable() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this participant?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/form/${id}`);
+        await axios.delete(`https://eventflow-five.vercel.app/api/form/${id}`);
         // Update UI by removing the deleted participant
         setData(data.filter(participant => participant._id !== id));
       } catch (error) {

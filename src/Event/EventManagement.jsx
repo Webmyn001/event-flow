@@ -23,7 +23,7 @@ export default function EventManagement() {
     const fetchOrganizer = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/organizer');
+        const response = await axios.get('https://eventflow-five.vercel.app/api/organizer');
         
         // If organizer exists, set the state
         if (response.data.length > 0) {
@@ -72,13 +72,13 @@ export default function EventManagement() {
       if (organizer._id) {
         // Update existing organizer
         response = await axios.put(
-          `http://localhost:5000/api/organizer/${organizer._id}`,
+          `https://eventflow-five.vercel.app/api/organizer/${organizer._id}`,
           payload
         );
       } else {
         // Create new organizer
         response = await axios.post(
-          'http://localhost:5000/api/organizer/',
+          'https://eventflow-five.vercel.app/api/organizer/',
           payload
         );
         // Set the new ID from the response
@@ -99,7 +99,7 @@ export default function EventManagement() {
     
     if (window.confirm('Are you sure you want to delete this organizer? All associated events will also be deleted.')) {
       try {
-        await axios.delete(`http://localhost:5000/api/organizer/${organizer._id}`);
+        await axios.delete(`https://eventflow-five.vercel.app/api/organizer/${organizer._id}`);
         
         // Reset organizer state
         setOrganizer({

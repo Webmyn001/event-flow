@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   HiUser, HiMail, HiPhone, HiSelector, HiUserGroup,
   HiIdentification, HiCheckCircle, HiUserAdd, HiCalendar,
-  HiLocationMarker
+  HiLocationMarker, HiLockClosed
 } from 'react-icons/hi';
 import confetti from 'canvas-confetti';
 
@@ -19,6 +19,9 @@ export default function WelcomeAndRegistration() {
   // Registration states
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoginMode, setIsLoginMode] = useState(false);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginError, setLoginError] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     emailAddress: '',
@@ -26,13 +29,17 @@ export default function WelcomeAndRegistration() {
     phoneNumber: '',
     role: ''
   });
+  
+  // Loading states
+  const [signupLoading, setSignupLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
 
   // Fetch organizer data directly from API
   useEffect(() => {
     const fetchOrganizerData = async () => {
       try {
         setLoadingOrganizer(true);
-        const response = await axios.get('http://localhost:5000/api/organizer');
+        const response = await axios.get('https://eventflow-five.vercel.app/api/organizer');
         if (response.data.length > 0) {
           setOrganizerData(response.data[0]);
         }
@@ -46,25 +53,63 @@ export default function WelcomeAndRegistration() {
     fetchOrganizerData();
   }, []);
 
-  // Handle registration submission
-  const handleSubmit = async (e) => {
+  // Handle registration (signup) submission
+  const handleSignup = async (e) => {
     if (e) e.preventDefault();
     
     try {
-      // Submit registration form
-      await axios.post('http://localhost:5000/api/form', formData);
+      setSignupLoading(true);
+      // Submit registration form to signup endpoint
+      await axios.post('https://eventflow-five.vercel.app/api/form/signup', formData);
       
       // Show success state and trigger confetti
       setIsSuccess(true);
       triggerConfetti();
       
-      // Redirect after 5.5 seconds
+      // After 5.5 seconds, switch to login mode with prefilled email
       setTimeout(() => {
-        navigate('/schedule');
+        setLoginEmail(formData.emailAddress);
+        setIsLoginMode(true);
+        setIsSuccess(false);
+        setSignupLoading(false);
       }, 5500);
       
     } catch (error) {
+      setSignupLoading(false);
       alert('Registration failed. Please try again.');
+      console.error('Registration error:', error);
+    }
+  };
+
+  // Handle login submission
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      setLoginLoading(true);
+      setLoginError('');
+      // Submit to login endpoint
+      const response = await axios.post('https://eventflow-five.vercel.app/api/form/login', {
+        emailAddress: loginEmail
+      });
+      
+      // Check if login was successful
+      if (response.data.Login) {
+        // Store user info in localStorage
+        localStorage.setItem('user', JSON.stringify({
+          emailAddress: loginEmail,
+          name: response.data.user?.fullName || 'Attendee'
+        }));
+        
+        // Navigate to schedule
+        navigate('/schedule');
+      } else {
+        setLoginError(response.data.message || 'Login failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+      setLoginError(error.response?.data?.message || 'Login failed. Please try again.');
+    } finally {
+      setLoginLoading(false);
     }
   };
 
@@ -105,7 +150,7 @@ export default function WelcomeAndRegistration() {
       ? new Date(organizerData.date).getFullYear() 
       : '2025';
   };
-console.log(organizerData)
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -119,17 +164,25 @@ console.log(organizerData)
           animate={{ y: 0, opacity: 1 }}
           className="text-center mb-10"
         >
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {getEventName()}
-            <span className="block text-2xl text-blue-600 mt-2">
-              {organizerData.date}
-            </span>
-          </h1>
-        
-          {organizerData?.location && (
-            <p className="text-gray-500 mt-2">
-              {organizerData.location}
-            </p>
+          {loadingOrganizer ? (
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p className="text-gray-500">Loading event details...</p>
+            </div>
+          ) : (
+            <>
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                {getEventName()}
+                <span className="block text-2xl text-blue-600 mt-2">
+                  {organizerData?.date ? new Date(organizerData.date).getFullYear() : '2025'}
+                </span>
+              </h1>
+              {organizerData?.location && (
+                <p className="text-gray-500 mt-2">
+                  {organizerData.location}
+                </p>
+              )}
+            </>
           )}
         </motion.div>
 
@@ -156,14 +209,100 @@ console.log(organizerData)
             <div className="space-y-4 mt-8">
               <div className="flex justify-center">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center animate-pulse">
-                  <HiCalendar className="w-8 h-8 text-blue-600" />
+                  <HiLockClosed className="w-8 h-8 text-blue-600" />
                 </div>
               </div>
               
               <p className="text-sm text-gray-500">
-                Taking you to the event schedule in a moment...
+                Taking you to the login page to access the event...
               </p>
             </div>
+          </motion.div>
+        ) : isLoginMode ? (
+          <motion.div
+            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6"
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+          >
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <HiLockClosed className="w-8 h-8 text-blue-600" />
+              <h2 className="text-2xl font-bold text-gray-800">
+                Participant Login
+              </h2>
+            </div>
+            
+            {/* Login Form */}
+            <motion.form
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              onSubmit={handleLogin}
+            >
+              {loginError && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center">
+                  {loginError}
+                </div>
+              )}
+              
+              <div className="space-y-5">
+                {/* Email Field */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <label className="block text-sm font-medium text-gray-600 mb-2 ml-1">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <HiMail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="email"
+                      required
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                      placeholder="john@example.com"
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      disabled={loginLoading}
+                    />
+                  </div>
+                </motion.div>
+              </div>
+
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: loginLoading ? 1 : 1.02 }}
+                whileTap={{ scale: loginLoading ? 1 : 0.98 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                type="submit"
+                className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-6 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all flex items-center justify-center"
+                disabled={loginLoading}
+              >
+                {loginLoading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Logging in...
+                  </>
+                ) : 'Login'}
+              </motion.button>
+              
+              <div className="text-center mt-4">
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setIsLoginMode(false);
+                    setLoginError('');
+                  }}
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                  disabled={loginLoading}
+                >
+                  Don't have an account? Register here
+                </button>
+              </div>
+            </motion.form>
           </motion.div>
         ) : (
           <motion.div
@@ -182,7 +321,7 @@ console.log(organizerData)
             <motion.form
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              onSubmit={handleSubmit}
+              onSubmit={handleSignup}
             >
               <div className="space-y-5">
                 {/* Full Name Field */}
@@ -203,6 +342,7 @@ console.log(organizerData)
                       placeholder="John Doe"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      disabled={signupLoading}
                     />
                   </div>
                 </motion.div>
@@ -225,6 +365,7 @@ console.log(organizerData)
                       placeholder="john@example.com"
                       value={formData.emailAddress}
                       onChange={(e) => setFormData({ ...formData, emailAddress: e.target.value })}
+                      disabled={signupLoading}
                     />
                   </div>
                 </motion.div>
@@ -247,6 +388,7 @@ console.log(organizerData)
                       placeholder="09164028709"
                       value={formData.phoneNumber}
                       onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                      disabled={signupLoading}
                     />
                   </div>
                 </motion.div>
@@ -268,6 +410,7 @@ console.log(organizerData)
                       className="w-full appearance-none pl-10 pr-10 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                       value={formData.gender}
                       onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                      disabled={signupLoading}
                     >
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
@@ -293,6 +436,7 @@ console.log(organizerData)
                       className="w-full appearance-none pl-10 pr-10 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                       value={formData.role}
                       onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                      disabled={signupLoading}
                     >
                       <option value="">Select Role</option>
                       <option value="organizer">Organizer</option>
@@ -306,14 +450,37 @@ console.log(organizerData)
               <motion.button
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: signupLoading ? 1 : 1.02 }}
+                whileTap={{ scale: signupLoading ? 1 : 0.98 }}
                 transition={{ type: 'spring', stiffness: 300 }}
                 type="submit"
-                className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-6 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all"
+                className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-6 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all flex items-center justify-center"
+                disabled={signupLoading}
               >
-                Complete Registration
+                {signupLoading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Registering...
+                  </>
+                ) : 'Complete Registration'}
               </motion.button>
+              
+              <div className="text-center mt-4">
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setIsLoginMode(true);
+                    setLoginError('');
+                  }}
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                  disabled={signupLoading}
+                >
+                  Already registered? Login here
+                </button>
+              </div>
             </motion.form>
           </motion.div>
         )}

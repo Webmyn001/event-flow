@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
-import Header from './Header';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EventItem from './EventItem';
 import NotesSection from './NotesSection';
 import { HiCalendar, HiLocationMarker } from 'react-icons/hi';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function EventSchedulePage() {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,11 +17,19 @@ export default function EventSchedulePage() {
     date: 'October 15-16, 2024'
   });
 
+  // Check authentication on component mount
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   // Fetch events from API
   const fetchEvents = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/events');
+      const response = await axios.get('https://eventflow-five.vercel.app/api/events');
       
       // Transform API data to match component structure
       const transformedEvents = response.data.map(event => ({
@@ -49,7 +58,7 @@ export default function EventSchedulePage() {
   // Fetch event details from organizer endpoint
   const fetchEventDetails = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/organizer');
+      const response = await axios.get('https://eventflow-five.vercel.app/api/organizer');
       if (response.data.length > 0) {
         const orgData = response.data[0];
         setEventDetails({
@@ -68,9 +77,19 @@ export default function EventSchedulePage() {
   };
 
   useEffect(() => {
-    fetchEvents();
-    fetchEventDetails();
+    // Only fetch data if user is authenticated
+    const user = localStorage.getItem('user');
+    if (user) {
+      fetchEvents();
+      fetchEventDetails();
+    }
   }, []);
+
+  // Render nothing while checking auth status
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return null;
+  }
 
   return (
     <motion.div
@@ -78,7 +97,6 @@ export default function EventSchedulePage() {
       animate={{ opacity: 1 }}
       className="min-h-screen bg-[#f8f8f8]"
     >
-      <Header userNumber={25} totalAttendees={100} />
       
       <div className="max-w-2xl mx-auto p-4">
         {/* Main Event Title Section */}

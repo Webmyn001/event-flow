@@ -13,7 +13,7 @@ export default function EventList() {
   const fetchEvents = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/events');
+      const response = await axios.get('https://eventflow-five.vercel.app/api/events');
       setEvents(response.data);
       setError(null);
     } catch (err) {
@@ -32,7 +32,7 @@ export default function EventList() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/events/${id}`);
+        await axios.delete(`https://eventflow-five.vercel.app/api/events/${id}`);
         // Optimistically update UI
         setEvents(events.filter(event => event._id !== id));
       } catch (error) {
@@ -42,8 +42,9 @@ export default function EventList() {
     }
   };
 
+  // Corrected handler with proper ID passing
   const handleUpdate = (id) => {
-    navigate(`/organizer/events/update/${id}`);
+    navigate(`/update/${id}`);  // Make sure to include the slash
   };
 
   const getStatusColor = (status) => {
