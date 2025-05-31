@@ -12,9 +12,9 @@ export default function EventSchedulePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [eventDetails, setEventDetails] = useState({
-    name: 'Global Tech Summit 2024',
-    location: 'San Francisco Convention Center',
-    date: 'October 15-16, 2024',
+    name: '',
+    location: '',
+    date: '',
     logoUrl: ''
   });
   const [loadingDetails, setLoadingDetails] = useState(true);
