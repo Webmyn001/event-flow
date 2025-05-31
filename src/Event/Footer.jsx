@@ -17,8 +17,7 @@ export default function Footer() {
           </div>
 
           <div className="text-sm">
-            <h3>09164028709 , 09164028709</h3>
-
+            <h3>09164028709 , 09076147178</h3>
           </div>
           
           <div className="flex items-center gap-2 text-sm">

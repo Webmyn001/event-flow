@@ -2,8 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EventItem from './EventItem';
-import NotesSection from './NotesSection';
-import { HiCalendar, HiLocationMarker } from 'react-icons/hi';
+import { HiCalendar, HiLocationMarker, HiDocumentText } from 'react-icons/hi';
 import axios from 'axios';
 
 export default function EventSchedulePage() {
@@ -38,13 +37,11 @@ export default function EventSchedulePage() {
         id: event._id,
         name: event.title,
         time: event.time,
+        handler: event.handler,
         duration: `${event.duration} min`,
         status: event.status,
-        notes: event.noteUrl ? [{
-          name: event.noteTitle || 'Event Notes',
-          type: 'file',
-          url: event.noteUrl
-        }] : []
+        noteTitle: event.noteTitle || 'Event Notes',
+        noteUrl: event.noteUrl
       }));
       
       setEvents(transformedEvents);
@@ -191,28 +188,21 @@ export default function EventSchedulePage() {
 
         {/* Events List */}
         {!loading && !error && (
-          <>
-            <div className="space-y-4">
-              {events.length > 0 ? (
-                events.map((event) => (
-                  <EventItem
-                    key={event.id}
-                    event={event}
-                    isCurrent={event.status === 'current'}
-                  />
-                ))
-              ) : (
-                <div className="text-center py-8 bg-gray-50 rounded-lg">
-                  <p className="text-gray-500">No events scheduled yet</p>
-                </div>
-              )}
-            </div>
-
-            {/* Show notes for current event */}
-            <NotesSection 
-              notes={events.find(e => e.status === 'current')?.notes || []} 
-            />
-          </>
+          <div className="space-y-4">
+            {events.length > 0 ? (
+              events.map((event) => (
+                <EventItem
+                  key={event.id}
+                  event={event}
+                  isCurrent={event.status === 'current'}
+                />
+              ))
+            ) : (
+              <div className="text-center py-8 bg-gray-50 rounded-lg">
+                <p className="text-gray-500">No events scheduled yet</p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </motion.div>
