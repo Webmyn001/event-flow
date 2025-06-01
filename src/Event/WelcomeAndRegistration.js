@@ -193,7 +193,7 @@ export default function WelcomeAndRegistration() {
                   <img 
                     src={organizerData.logoUrl} 
                     alt={`${organizerData.name || 'Event'} logo`}
-                    className="w-[132px] h-[132px] object-cover rounded-lg shadow-md border border-gray-100"
+                    className="w-[132px] h-[132px] object-contain rounded-lg shadow-md border border-gray-100"
                   />
                 </motion.div>
               )}
