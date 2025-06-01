@@ -92,6 +92,9 @@ export default function ParticipantsTable() {
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    S/N
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Full Name
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -115,13 +118,16 @@ export default function ParticipantsTable() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredParticipants.map((participant) => (
+                {filteredParticipants.map((participant, i) => (
                   <motion.tr
                     key={participant._id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="hover:bg-gray-50"
                   >
+                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {i+1}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {participant.fullName}
                     </td>

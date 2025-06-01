@@ -9,12 +9,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<WelcomeAndRegistration/>} />
-        <Route path="/schedule" element={<EventSchedulePage />} />
+        {/* <Route path="/" element={<WelcomeAndRegistration/>} /> */}
+        {/* <Route path="/schedule" element={<EventSchedulePage />} /> */}
 
 
-        {/* <Route path="/organizer" element={<OrganizerDashboard />} /> */}
-        {/* <Route path="/update/:id" element={<UpdateEventForm />} /> */}
+        <Route path="/organizer" element={<OrganizerDashboard />} />
+        <Route path="/update/:id" element={<UpdateEventForm />} />
 
         
 
