@@ -481,7 +481,6 @@ export default function WelcomeAndRegistration() {
                       disabled={signupLoading}
                     >
                       <option value="">Select Role</option>
-                      <option value="organizer">Organizer</option>
                       <option value="audience">Audience</option>
                       <option value="guest lecturer">Guest Lecturer/Speaker</option>
                     </select>
