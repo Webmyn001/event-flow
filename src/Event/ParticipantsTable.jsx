@@ -41,12 +41,25 @@ export default function ParticipantsTable() {
     }
   };
 
+  
+// Normalize search term
+  const normalizedSearch = searchTerm.trim().toLowerCase();
 
-  const filteredParticipants = data.filter(participant =>
-    participant.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    participant.emailAddress?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    participant.role?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter participants based on search
+  const filteredParticipants = data.filter(participant => {
+    // Handle gender-specific searches
+    if (normalizedSearch === 'male' || normalizedSearch === 'female') {
+      return participant.gender?.toLowerCase() === normalizedSearch;
+    }
+    // General search
+    return (
+      participant.fullName?.toLowerCase().includes(normalizedSearch) ||
+      participant.emailAddress?.toLowerCase().includes(normalizedSearch) ||
+      participant.role?.toLowerCase().includes(normalizedSearch) ||
+      participant.gender?.toLowerCase().includes(normalizedSearch)
+    );
+  });
+
 
   return (
     <div className="p-6">
