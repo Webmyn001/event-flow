@@ -144,7 +144,7 @@ const StudentList = () => {
                         deletingId === student.id ? 'opacity-50 cursor-not-allowed' : ''
                       }`}
                     >
-                      {deletingId === student.id ? 'Deleting...' : 'Remove'}
+                      {deletingId === student.id ? 'Deleting...' : 'Delete Student'}
                     </button>
                   </td>
                 </motion.tr>
