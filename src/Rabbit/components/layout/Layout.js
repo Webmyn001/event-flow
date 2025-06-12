@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation Bar */}
-      <Navbar />
+      {/* <Navbar /> */}
       
       {/* Main Content */}
       <main className="flex-grow">
@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
       </main>
       
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

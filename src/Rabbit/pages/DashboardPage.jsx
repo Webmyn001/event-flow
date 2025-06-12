@@ -47,7 +47,7 @@ const DashboardPage = () => {
             animate={{ y: 0 }}
             className="text-3xl font-bold text-emerald-800"
           >
-            Rabbitry Management Dashboard
+           Toheeb Rabbitry Management Dashboard
           </motion.h1>
           <p className="mt-2 text-gray-600">
             Manage your rabbit farm operations and training program
