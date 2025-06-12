@@ -35,8 +35,8 @@ const StudentList = () => {
       setDeletingId(id);
       await axios.delete(`https://rabbit-rust.vercel.app/api/student/${id}`);
       
-      // Update UI optimistically
-      setStudents(students.filter(student => student.id !== id));
+      // REFRESH THE PAGE AFTER SUCCESSFUL DELETION
+      window.location.reload();
     } catch (err) {
       console.error('Error deleting student:', err);
       alert('Failed to delete student. Please try again.');
@@ -136,9 +136,7 @@ const StudentList = () => {
                     {student.JoinedDate}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button className="text-emerald-600 hover:text-emerald-900 mr-3">
-                      View Progress
-                    </button>
+                    
                     <button 
                       onClick={() => handleDelete(student._id)}
                       disabled={deletingId === student._id}
