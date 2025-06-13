@@ -41,7 +41,7 @@ export default function ParticipantsTable() {
     }
   };
 
-  
+
 // Normalize search term
   const normalizedSearch = searchTerm.trim().toLowerCase();
 
@@ -141,6 +141,7 @@ export default function ParticipantsTable() {
                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {i+1}
                     </td>
+                    {console.log(participant)}
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {participant.fullName}
                     </td>

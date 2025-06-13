@@ -27,7 +27,8 @@ export default function WelcomeAndRegistration() {
     emailAddress: '',
     gender: '',
     phoneNumber: '',
-    role: ''
+    level: '',
+    department:''
   });
   
   // Loading states
@@ -412,6 +413,48 @@ export default function WelcomeAndRegistration() {
                   </div>
                 </motion.div>
 
+                 {/* Level Field */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.15 }}
+                >
+                  <label className="block text-sm font-medium text-gray-600 mb-2 ml-1">
+                    Level
+                  </label>
+                  <div className="relative">
+                    <input
+                      required
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                      placeholder="Part 2"
+                      value={formData.level}
+                      onChange={(e) => setFormData({ ...formData, level: e.target.value })}
+                      disabled={signupLoading}
+                    />
+                  </div>
+                </motion.div>
+
+                 {/* Phone Number Field */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.15 }}
+                >
+                  <label className="block text-sm font-medium text-gray-600 mb-2 ml-1">
+                    Department
+                  </label>
+                  <div className="relative">
+                    <input
+                      required
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                      placeholder="Soil Science"
+                      value={formData.department}
+                      onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                      disabled={signupLoading}
+                    />
+                  </div>
+                </motion.div>
+
                 {/* Phone Number Field */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -461,7 +504,7 @@ export default function WelcomeAndRegistration() {
                   </div>
                 </motion.div>
 
-                {/* Role Dropdown */}
+                {/* Role Dropdown
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -485,7 +528,7 @@ export default function WelcomeAndRegistration() {
                       <option value="guest lecturer">Guest Lecturer/Speaker</option>
                     </select>
                   </div>
-                </motion.div>
+                </motion.div> */}
               </div>
 
               <motion.button
