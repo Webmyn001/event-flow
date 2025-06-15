@@ -541,7 +541,7 @@ export default function WelcomeAndRegistration() {
                       <input
                         required
                         className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                        placeholder="Soil Science"
+                        placeholder="Computer Science & Engineering"
                         value={formData.department}
                         onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                         disabled={signupLoading}
