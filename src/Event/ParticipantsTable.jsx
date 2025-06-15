@@ -114,16 +114,16 @@ export default function ParticipantsTable() {
                     Email
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Phone
+                    Level
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Department
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Gender
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Role
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Submitted Time
+                    Phone Number
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -149,12 +149,12 @@ export default function ParticipantsTable() {
                       {participant.emailAddress}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {participant.phoneNumber}
+                      {participant.level}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
-                      {participant.gender}
+                      {participant.department}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    {/* <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         participant.role === 'organizer' 
                           ? 'bg-blue-100 text-blue-800' 
@@ -164,9 +164,12 @@ export default function ParticipantsTable() {
                       }`}>
                         {participant.role}
                       </span>
+                    </td> */}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {participant.gender}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {participant.submittedTime}
+                      {participant.phoneNumber}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       <button

@@ -1,8 +1,9 @@
+// src/pages/EventSchedulePage.jsx
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EventItem from './EventItem';
-import { HiCalendar, HiLocationMarker, HiDocumentText } from 'react-icons/hi';
+import { HiCalendar, HiLocationMarker, HiRefresh } from 'react-icons/hi';
 import axios from 'axios';
 
 export default function EventSchedulePage() {
@@ -17,6 +18,8 @@ export default function EventSchedulePage() {
     logoUrl: ''
   });
   const [loadingDetails, setLoadingDetails] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const refreshInterval = useRef(null);
 
   // Check authentication on component mount
   useEffect(() => {
@@ -46,6 +49,7 @@ export default function EventSchedulePage() {
       
       setEvents(transformedEvents);
       setError(null);
+      setLastUpdated(new Date());
     } catch (err) {
       setError(err.message);
       console.error('Error fetching events:', err);
@@ -66,7 +70,7 @@ export default function EventSchedulePage() {
           location: orgData.location,
           logoUrl: orgData.logoUrl || '',
           date: new Date(orgData.date).toLocaleDateString('en-US', {
-            month: 'long',
+            month: 'short',
             day: 'numeric',
             year: 'numeric'
           })
@@ -79,6 +83,19 @@ export default function EventSchedulePage() {
     }
   };
 
+  // Setup auto-refresh every 30 seconds
+  useEffect(() => {
+    refreshInterval.current = setInterval(() => {
+      fetchEvents();
+    }, 30000); // 30 seconds
+    
+    return () => {
+      if (refreshInterval.current) {
+        clearInterval(refreshInterval.current);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     // Only fetch data if user is authenticated
     const user = localStorage.getItem('user');
@@ -87,6 +104,12 @@ export default function EventSchedulePage() {
       fetchEventDetails();
     }
   }, []);
+
+  // Format last updated time
+  const formatTime = (date) => {
+    if (!date) return '';
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
 
   // Render nothing while checking auth status
   const user = localStorage.getItem('user');
@@ -98,112 +121,145 @@ export default function EventSchedulePage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-[#f8f8f8]"
+      className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-6"
     >
-      <div className="max-w-2xl mx-auto p-4">
-        {/* Main Event Title Section */}
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8 text-center space-y-4"
-        >
-          {loadingDetails ? (
-            <div className="flex justify-center">
-              <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            </div>
-          ) : (
-            <>
-              {/* Logo - Only shown if exists in eventDetails */}
-              {eventDetails.logoUrl && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="mb-4 flex justify-center"
-                >
-                  <img 
-                    src={eventDetails.logoUrl} 
-                    alt={`${eventDetails.name} logo`}
-                    className="w-[132px] h-[132px] object-contain rounded-lg  shadow-md border "
-                  />
-                </motion.div>
-              )}
-
-              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {eventDetails.name}
-              </h1>
-              
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="flex flex-col items-center justify-center gap-6 text-gray-600 mt-4"
-              >
-                {eventDetails.location && (
-                  <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
-                    <HiLocationMarker className="w-5 h-5 text-purple-600" />
-                    <span className="font-medium">{eventDetails.location}</span>
-                  </div>
-                )}
-                {eventDetails.date && (
-                  <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
-                    <HiCalendar className="w-5 h-5 text-blue-600" />
-                    <span className="font-medium">{eventDetails.date}</span>
-                  </div>
-                )}
-              </motion.div>
-            </>
-          )}
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-xl font-bold text-gray-600 uppercase tracking-wide"
+      <div className="max-w-2xl mx-auto px-4">
+        {/* Header with refresh controls */}
+        <div className="flex justify-between items-center mb-4">
+          <motion.h1 
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="text-xl font-bold text-gray-800"
           >
             Event Schedule
-          </motion.p>
-        </motion.div>
-
-        {/* Loading state */}
-        {loading && (
-          <div className="text-center py-8">
-            <p className="text-gray-500">Loading events...</p>
-          </div>
-        )}
-
-        {/* Error state */}
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6 text-center">
-            <p>Error: {error}</p>
-            <button 
-              onClick={fetchEvents}
-              className="mt-2 bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-            >
-              Retry
-            </button>
-          </div>
-        )}
-
-        {/* Events List */}
-        {!loading && !error && (
-          <div className="space-y-4">
-            {events.length > 0 ? (
-              events.map((event) => (
-                <EventItem
-                  key={event.id}
-                  event={event}
-                  isCurrent={event.status === 'current'}
-                />
-              ))
-            ) : (
-              <div className="text-center py-8 bg-gray-50 rounded-lg">
-                <p className="text-gray-500">No events scheduled yet</p>
+          </motion.h1>
+          
+          <div className="flex items-center gap-2">
+            {lastUpdated && (
+              <div className="text-xs text-gray-500">
+                Updated: {formatTime(lastUpdated)}
               </div>
             )}
+            <button 
+              onClick={fetchEvents}
+              className="p-2 rounded-full bg-white shadow-sm hover:bg-gray-50 transition-colors"
+            >
+              <HiRefresh className="w-5 h-5 text-blue-600" />
+            </button>
           </div>
-        )}
+        </div>
+
+        {/* Main Event Details */}
+        <motion.div 
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="mb-6"
+        >
+          {loadingDetails ? (
+            <div className="flex justify-center py-4">
+              <div className="w-10 h-10 border-3 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+              <div className="flex items-center gap-4">
+                {eventDetails.logoUrl && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex-shrink-0"
+                  >
+                    <img 
+                      src={eventDetails.logoUrl} 
+                      alt={`${eventDetails.name} logo`}
+                      className="w-12 h-12 object-cover rounded-lg border border-gray-200"
+                    />
+                  </motion.div>
+                )}
+
+                <div>
+                  <h2 className="text-lg font-bold text-gray-800">
+                    {eventDetails.name}
+                  </h2>
+                  
+                  <div className="flex flex-wrap gap-2 mt-2 text-xs">
+                    {eventDetails.location && (
+                      <div className="flex items-center gap-1 bg-blue-50 px-2 py-1 rounded text-blue-700">
+                        <HiLocationMarker className="w-3 h-3" />
+                        <span>{eventDetails.location}</span>
+                      </div>
+                    )}
+                    {eventDetails.date && (
+                      <div className="flex items-center gap-1 bg-purple-50 px-2 py-1 rounded text-purple-700">
+                        <HiCalendar className="w-3 h-3" />
+                        <span>{eventDetails.date}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </motion.div>
+
+        {/* Events Section */}
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="space-y-4"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-base font-semibold text-gray-700">
+              Today's Schedule
+            </h3>
+            <div className="text-xs text-gray-500">
+              {events.length} events
+            </div>
+          </div>
+
+          {/* Loading state */}
+          {loading && (
+            <div className="text-center py-8">
+              <div className="inline-flex items-center gap-2 text-gray-500">
+                <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <span>Loading events...</span>
+              </div>
+            </div>
+          )}
+
+          {/* Error state */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4 text-center text-sm">
+              <p>Error: {error}</p>
+              <button 
+                onClick={fetchEvents}
+                className="mt-2 bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded text-xs font-medium transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          )}
+
+          {/* Events List */}
+          {!loading && !error && (
+            <div className="space-y-3">
+              {events.length > 0 ? (
+                events.map((event) => (
+                  <EventItem
+                    key={event.id}
+                    event={event}
+                    isCurrent={event.status === 'current'}
+                  />
+                ))
+              ) : (
+                <div className="text-center py-8 bg-white rounded-lg shadow-sm">
+                  <p className="text-gray-500 text-sm">No events scheduled yet</p>
+                </div>
+              )}
+            </div>
+          )}
+        </motion.div>
       </div>
     </motion.div>
   );
