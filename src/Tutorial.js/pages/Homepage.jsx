@@ -4,16 +4,13 @@ import {
   FaChalkboardTeacher, 
   FaClock, 
   FaLock, 
-  FaRocket, 
-  FaUsers, 
+  FaRocket,  
   FaGraduationCap, 
   FaChartLine, 
   FaMedal, 
-  FaLightbulb,
   FaArrowRight,
   FaStar,
   FaCheckCircle,
-  FaPlay,
   FaUserGraduate
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';

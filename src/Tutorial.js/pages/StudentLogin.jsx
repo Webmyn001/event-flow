@@ -3,10 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { 
   FaLock, 
-  FaArrowLeft, 
   FaWhatsapp, 
-  FaPhone, 
-  FaEnvelope,
   FaUserGraduate,
   FaEye,
   FaEyeSlash,
@@ -75,7 +72,7 @@ const StudentLogin = () => {
     setError("");
 
     try {
-      const res = await axios.get("http://localhost:5000/api/students");
+      const res = await axios.get("https://tutorial-backend-alpha.vercel.app/api/students");
       const students = res.data;
 
       const found = students.find(

@@ -124,7 +124,7 @@ const StudentsSection = () => {
   // ✅ Fetch students
   const fetchStudents = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/students");
+      const res = await axios.get("https://tutorial-backend-alpha.vercel.app/api/students");
       setStudents(res.data);
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -149,7 +149,7 @@ const StudentsSection = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/students",
+        "https://tutorial-backend-alpha.vercel.app/api/students",
         { name, accessCode },
         {
           headers: {
@@ -179,7 +179,7 @@ const StudentsSection = () => {
     const token = localStorage.getItem("adminToken");
 
     try {
-      await axios.delete(`http://localhost:5000/api/students/${id}`, {
+      await axios.delete(`https://tutorial-backend-alpha.vercel.app/api/students/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
