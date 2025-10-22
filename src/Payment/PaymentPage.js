@@ -1,60 +1,49 @@
-import React, { useState } from "react";
+import React from "react";
+import { FlutterWaveButton, closePaymentModal } from "flutterwave-react-v3";
 import axios from "axios";
-import { PaystackButton } from "react-paystack";
 
-export default function PaymentPage() {
-  const [email, setEmail] = useState("");
-  const [amount, setAmount] = useState("");
+export default function Payment() {
+  const fwConfig = {
+    public_key: "FLWPUBK_TEST-ec84603d310ebb74874cb52aa4563352-X",
+    tx_ref: Date.now(),
+    amount: 1000,
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    customer: {
+      email: "customer@example.com",
+      phone_number: "07012345678",
+      name: "John Doe",
+    },
+    customizations: {
+      title: "My Shop",
+      description: "Payment for test product",
+      logo: "https://flutterwave.com/images/logo-colored.svg",
+    },
+    callback: async (response) => {
+      console.log("Flutterwave Response:", response);
+      closePaymentModal(); // close modal programmatically
 
-  const publicKey = "pk_test_3ab72648c3e10445b6ab8e28f8b6f8fcc46d725c";
-
-  const componentProps = {
-    email,
-    amount: Number(amount) * 100,
-    publicKey,
-    text: "Pay Now",
-    onSuccess: async (response) => {
-      console.log("Payment successful!", response);
-      // Verify transaction on the backend
       try {
-        console.log(response.reference)
-        const verifyRes = await axios.get(
-          `http://localhost:5000/api/paystack/verify/${response.reference}`
-        );
-        console.log("Verification result:", verifyRes.data);
+        // Send transaction_id to backend for verification
+        const res = await axios.post("http://localhost:5000/api/verify-payment", {
+          transaction_id: response.transaction_id,
+        });
+        console.log("Verification Response:", res.data);
         alert("Payment verified successfully!");
       } catch (error) {
-        console.error("Verification error", error);
-        alert("Could not verify payment.");
+        alert("Verification failed!");
+        console.error(error);
       }
     },
-    onClose: () => alert("Payment closed"),
+    onClose: () => {
+      console.log("Payment modal closed");
+    },
+    text: "Pay with Flutterwave",
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-      <h1 className="text-2xl font-bold mb-4">Pay with Paystack</h1>
-
-      <input
-        type="email"
-        placeholder="Enter email"
-        className="border p-2 rounded mb-2"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <input
-        type="number"
-        placeholder="Enter amount"
-        className="border p-2 rounded mb-4"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-      />
-
-      <PaystackButton
-        className="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-500"
-        {...componentProps}
-      />
+    <div className="flex justify-center items-center h-screen">
+      <FlutterWaveButton {...fwConfig} className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-500 transition-all" />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import {
   FaTimes,
   FaAtom 
 } from "react-icons/fa";
+import Logo from "../Images/tutoriallogo.jpg"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,8 +21,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-3">
           {/* Logo/Brand */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="bg-white p-2 rounded-full">
-              <FaAtom className="h-6 w-6 text-indigo-700" />
+            <div className="p-1 rounded-md">
+              <img src={Logo} alt="logo" className="h-[30px] w-[30px] object-cover"/>
             </div>
             <span className="text-xl font-bold text-white">PhysicsLearn</span>
           </Link>
@@ -36,18 +37,18 @@ const Navbar = () => {
               Home
             </Link>
             <Link 
-              to="/classroom" 
+              to="/login" 
               className={`px-4 py-2 rounded-lg transition-colors flex items-center ${location.pathname === "/classroom" ? "bg-indigo-800 text-white" : "text-indigo-100 hover:bg-indigo-600"}`}
             >
               <FaChalkboardTeacher className="mr-2" />
               Classroom
             </Link>
             <Link 
-              to="/dashboard" 
+              to="/admin" 
               className={`px-4 py-2 rounded-lg transition-colors flex items-center ${location.pathname === "/dashboard" ? "bg-indigo-800 text-white" : "text-indigo-100 hover:bg-indigo-600"}`}
             >
               <FaUserCog className="mr-2" />
-              Dashboard
+              Admin
             </Link>
           </div>
 
@@ -79,7 +80,7 @@ const Navbar = () => {
                 Home
               </Link>
               <Link 
-                to="/classroom" 
+                to="/login" 
                 className={`px-4 py-3 rounded-lg transition-colors flex items-center ${location.pathname === "/classroom" ? "bg-indigo-800 text-white" : "text-indigo-100 hover:bg-indigo-600"}`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -87,12 +88,12 @@ const Navbar = () => {
                 Classroom
               </Link>
               <Link 
-                to="/dashboard" 
+                to="/admin" 
                 className={`px-4 py-3 rounded-lg transition-colors flex items-center ${location.pathname === "/dashboard" ? "bg-indigo-800 text-white" : "text-indigo-100 hover:bg-indigo-600"}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FaUserCog className="mr-3" />
-                Dashboard
+                Admin
               </Link>
             </div>
           </div>
