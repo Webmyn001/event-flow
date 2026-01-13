@@ -9,7 +9,7 @@ import {
   FaTimes,
   FaAtom 
 } from "react-icons/fa";
-import Logo from "../Images/tutoriallogo.jpg"
+import Logo from "../Images/mastering_physics_logo.png"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,10 +21,10 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-3">
           {/* Logo/Brand */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="p-1 rounded-md">
-              <img src={Logo} alt="logo" className="h-[30px] w-[30px] object-cover"/>
+            <div className="p-1 rounded-md bg-white/10">
+              <img src={Logo} alt="MasteringPhysics Logo" className="h-[35px] w-[35px] object-contain"/>
             </div>
-            <span className="text-xl font-bold text-white">PhysicsLearn</span>
+            <span className="text-xl font-bold text-white">MasteringPhysics</span>
           </Link>
 
           {/* Desktop Navigation */}

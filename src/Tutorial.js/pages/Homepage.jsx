@@ -1,13 +1,13 @@
 import React from 'react';
-import { 
-  FaBook, 
-  FaChalkboardTeacher, 
-  FaClock, 
-  FaLock, 
-  FaRocket,  
-  FaGraduationCap, 
-  FaChartLine, 
-  FaMedal, 
+import {
+  FaBook,
+  FaChalkboardTeacher,
+  FaClock,
+  FaLock,
+  FaRocket,
+  FaGraduationCap,
+  FaChartLine,
+  FaMedal,
   FaArrowRight,
   FaStar,
   FaCheckCircle,
@@ -41,15 +41,15 @@ const Homepage = ({ onEnterClassroom }) => {
                 Confidence
               </span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed max-w-3xl mx-auto">
-              Exclusive learning platform for <span className="font-semibold">NATIONAL TEACHERS' INSTITUTE, KADUNA</span> - 
+              Exclusive learning platform for <span className="font-semibold">NATIONAL TEACHERS' INSTITUTE, KADUNA</span> -
               Your gateway to physics excellence and academic success
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <Link 
-                to="/login" 
+              <Link
+                to="/login"
                 className="group bg-white text-blue-600 hover:bg-blue-50 font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl inline-flex items-center justify-center gap-3"
               >
                 <FaRocket className="group-hover:animate-bounce" />
@@ -64,7 +64,7 @@ const Homepage = ({ onEnterClassroom }) => {
                 <div className="text-2xl md:text-3xl font-bold mb-1">95%</div>
                 <div className="text-sm opacity-80">Success Rate</div>
               </div>
-              
+
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold mb-1">24/7</div>
                 <div className="text-sm opacity-80">Access</div>
@@ -101,7 +101,7 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Exam-Focused Content</h3>
               <p className="text-slate-600 leading-relaxed">
-                Materials specifically tailored for NTI and IJMBE examination requirements, 
+                Materials specifically tailored for NTI and IJMBE examination requirements,
                 giving you the competitive edge you need to excel.
               </p>
               <div className="mt-4 flex items-center text-blue-600 font-semibold">
@@ -109,7 +109,7 @@ const Homepage = ({ onEnterClassroom }) => {
                 Tailored for Success
               </div>
             </div>
-            
+
             {/* Benefit 2 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 group hover:transform hover:-translate-y-2">
               <div className="bg-gradient-to-br from-green-100 to-green-200 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -117,7 +117,7 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Proven Results</h3>
               <p className="text-slate-600 leading-relaxed">
-                Students using our platform have shown a <span className="font-bold text-green-600">72% improvement</span> in 
+                Students using our platform have shown a <span className="font-bold text-green-600">72% improvement</span> in
                 test scores and conceptual understanding.
               </p>
               <div className="mt-4 flex items-center text-green-600 font-semibold">
@@ -125,7 +125,7 @@ const Homepage = ({ onEnterClassroom }) => {
                 Measurable Progress
               </div>
             </div>
-            
+
             {/* Benefit 3 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 group hover:transform hover:-translate-y-2">
               <div className="bg-gradient-to-br from-purple-100 to-purple-200 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -133,13 +133,75 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Expert Instructors</h3>
               <p className="text-slate-600 leading-relaxed">
-                Learn from certified physics educators with years of experience in preparing 
+                Learn from certified physics educators with years of experience in preparing
                 students for academic success and examination excellence.
               </p>
               <div className="mt-4 flex items-center text-purple-600 font-semibold">
                 <FaCheckCircle className="mr-2" />
                 Expert Guidance
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Payment Section */}
+      <section className="py-20 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+            <div className="bg-indigo-700 p-8 text-center">
+              <h2 className="text-3xl font-bold text-white mb-2">Payment Details</h2>
+              <p className="text-indigo-100">Subscribe now to access all premium content</p>
+            </div>
+
+            <div className="p-8 md:p-12">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                  <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                    <p className="text-sm text-slate-500 uppercase tracking-wider mb-1">Bank Name</p>
+                    <p className="text-xl font-bold text-slate-800">Opay</p>
+                  </div>
+
+                  <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                    <p className="text-sm text-slate-500 uppercase tracking-wider mb-1">Account Name</p>
+                    <p className="text-xl font-bold text-slate-800">Bello Muhyideen</p>
+                  </div>
+
+                  <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 relative group cursor-pointer transition-all hover:border-indigo-300">
+                    <p className="text-sm text-slate-500 uppercase tracking-wider mb-1">Account Number</p>
+                    <div className="flex justify-between items-center">
+                      <p className="text-2xl font-mono font-bold text-indigo-700">9164028709</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-center space-y-6">
+                  <div className="bg-green-50 p-6 rounded-xl border border-green-100">
+                    <h3 className="text-lg font-bold text-green-800 mb-3">Proof of Payment</h3>
+                    <p className="text-slate-600 mb-6 text-sm">
+                      After making payment, please send the receipt or screenshot to our tutor via WhatsApp for immediate access activation.
+                    </p>
+
+                    <a
+                      href="https://wa.me/2349164028709"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                    >
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                      </svg>
+                      Send Proof on WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-yellow-50 p-4 text-center border-t border-yellow-100">
+              <p className="text-yellow-800 text-sm font-semibold">
+                ⚠️ <span className="underline">Note</span>: This section is for testing purposes and will be removed soon.
+              </p>
             </div>
           </div>
         </div>
@@ -159,7 +221,7 @@ const Homepage = ({ onEnterClassroom }) => {
               Join thousands of students who are already excelling in physics with our structured learning approach
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Step 1 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg text-center relative group hover:transform hover:-translate-y-3 transition-all duration-300 border border-slate-200">
@@ -173,11 +235,11 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Get Your Access Code</h3>
               <p className="text-slate-600 leading-relaxed">
-                Receive your unique classroom access code from your instructor. This ensures that only 
+                Receive your unique classroom access code from your instructor. This ensures that only
                 registered students can access our premium educational content.
               </p>
             </div>
-            
+
             {/* Step 2 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg text-center relative group hover:transform hover:-translate-y-3 transition-all duration-300 border border-slate-200">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
@@ -190,11 +252,11 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Enter Classroom</h3>
               <p className="text-slate-600 leading-relaxed">
-                Go to the Classroom page and enter your access code. You'll gain immediate access to 
+                Go to the Classroom page and enter your access code. You'll gain immediate access to
                 all learning materials, class schedules, and interactive sessions.
               </p>
             </div>
-            
+
             {/* Step 3 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg text-center relative group hover:transform hover:-translate-y-3 transition-all duration-300 border border-slate-200">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
@@ -207,7 +269,7 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Access Materials</h3>
               <p className="text-slate-600 leading-relaxed">
-                Explore comprehensive study resources, join live classes, and track your progress 
+                Explore comprehensive study resources, join live classes, and track your progress
                 through our structured learning modules designed for success.
               </p>
             </div>
@@ -229,7 +291,7 @@ const Homepage = ({ onEnterClassroom }) => {
               Our platform is designed to provide a comprehensive learning experience tailored specifically for physics students
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Feature 1 */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-blue-100 group hover:transform hover:-translate-y-2 transition-all duration-300">
@@ -238,11 +300,11 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Comprehensive Study Materials</h3>
               <p className="text-slate-600 leading-relaxed">
-                Access detailed notes, diagrams, formula sheets, and problem sets specifically designed 
+                Access detailed notes, diagrams, formula sheets, and problem sets specifically designed
                 for NTI and IJMBE syllabi. All materials are regularly updated to reflect the latest curriculum changes.
               </p>
             </div>
-            
+
             {/* Feature 2 */}
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-2xl shadow-lg border border-amber-100 group hover:transform hover:-translate-y-2 transition-all duration-300">
               <div className="bg-white p-4 rounded-2xl inline-flex shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -250,11 +312,11 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Interactive Live Classes</h3>
               <p className="text-slate-600 leading-relaxed">
-                Join scheduled Google Meet sessions where you can ask questions in real-time, 
+                Join scheduled Google Meet sessions where you can ask questions in real-time,
                 participate in discussions, and get immediate feedback from experienced physics educators.
               </p>
             </div>
-            
+
             {/* Feature 3 */}
             <div className="bg-gradient-to-br from-emerald-50 to-teal-50 p-8 rounded-2xl shadow-lg border border-emerald-100 group hover:transform hover:-translate-y-2 transition-all duration-300">
               <div className="bg-white p-4 rounded-2xl inline-flex shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -262,7 +324,7 @@ const Homepage = ({ onEnterClassroom }) => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Flexible Learning Schedule</h3>
               <p className="text-slate-600 leading-relaxed">
-                Access materials 24/7 and join classes at scheduled times that work for you. 
+                Access materials 24/7 and join classes at scheduled times that work for you.
                 All live sessions are recorded and available for later review if you miss a class.
               </p>
             </div>
@@ -293,15 +355,15 @@ const Homepage = ({ onEnterClassroom }) => {
                 Physics?
               </span>
             </h2>
-            
+
             <p className="text-xl opacity-90 mb-8 leading-relaxed">
-              Transform your understanding of physics and join our community of successful students today. 
+              Transform your understanding of physics and join our community of successful students today.
               Your journey to academic excellence starts here.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link 
-                to="/login" 
+              <Link
+                to="/login"
                 className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-10 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl inline-flex items-center justify-center gap-3"
               >
                 <FaRocket className="group-hover:animate-bounce" />
@@ -309,7 +371,7 @@ const Homepage = ({ onEnterClassroom }) => {
                 <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
-            
+
             <p className="mt-8 text-slate-400 text-sm">
               Have an access code? Enter it on the Classroom login page
             </p>
